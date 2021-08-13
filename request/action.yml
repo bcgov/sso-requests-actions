@@ -1,0 +1,23 @@
+name: SSO Requests - Request
+author: BCGOV
+description: Run 'Request' scripts using the GitHub client
+branding:
+  color: blue
+  icon: code
+inputs:
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{ github.token }}
+    required: false
+  api-url:
+    description: The API url to update request status
+    required: true
+  auth-secret:
+    description: The secret to authenticate the API request
+    required: true
+outputs:
+  result:
+    description: The return value of the script, stringified with `JSON.stringify`
+runs:
+  using: node12
+  main: index.js

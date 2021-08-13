@@ -1,0 +1,25 @@
+{
+  "name": "sso-requests-actions",
+  "version": "0.1.0",
+  "description": "GitHub Actions to support sso-requests development process",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcgov/sso-requests-actions.git"
+  },
+  "author": "SSO Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bcgov/sso-requests-actions/issues"
+  },
+  "homepage": "https://github.com/bcgov/sso-requests-actions#readme",
+  "dependencies": {
+    "@actions/core": "^1.4.0",
+    "@actions/github": "^5.0.0",
+    "@actions/glob": "^0.2.0",
+    "@actions/io": "^1.1.1",
+    "axios": "^0.21.1",
+    "lodash": "^4.17.21",
+    "shelljs": "^0.8.4",
+    "terraform-generator": "^5.0.2"
+  }
+}
