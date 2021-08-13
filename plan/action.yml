@@ -1,0 +1,52 @@
+name: SSO Requests - Plan
+author: BCGOV
+description: Run 'Plan' scripts using the GitHub client
+branding:
+  color: blue
+  icon: code
+inputs:
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{ github.token }}
+    required: false
+  api-url:
+    description: The base API url to update request status
+    required: true
+  auth-secret:
+    description: The secret to authenticate the API request
+    required: true
+  plan-output:
+    description: The terraform plan output
+    required: true
+  plan-result:
+    description: The terraform plan result; whether failed or not
+    required: true
+  pr-number:
+    description: The PR number associated with the request
+    required: true
+  pr-branch:
+    description: The PR branch associated with the request
+    required: true
+  allowed-additions:
+    description: "The number of allowed terraform additions"
+    required: false
+    default: "21"
+  allowed-deletions:
+    description: "The number of allowed terraform deletions"
+    required: false
+    default: "21"
+  allowed-updates:
+    description: "The number of allowed terraform updates"
+    required: false
+    default: "21"
+  allowed-file-changes:
+    description: "The number of allowed terraform file changes"
+    required: false
+    default: "3"
+
+outputs:
+  result:
+    description: The return value of the script, stringified with `JSON.stringify`
+runs:
+  using: node12
+  main: index.js
