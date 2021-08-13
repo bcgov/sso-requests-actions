@@ -12,7 +12,7 @@ async function main() {
   const planOutput = core.getInput('plan-output', { required: true });
   const planResult = core.getInput('plan-result', { required: true });
   const prNumber = core.getInput('pr-number', { required: true });
-  const prBranch = core.getInput('allowed-additions', { required: true });
+  const prBranch = core.getInput('pr-branch', { required: true });
   const allowedAdditions = core.getInput('allowed-additions', { required: false });
   const allowedDeletions = core.getInput('allowed-deletions', { required: false });
   const allowedUpdates = core.getInput('allowed-updates', { required: false });
