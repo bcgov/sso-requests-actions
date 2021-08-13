@@ -4,7 +4,6 @@ const _ = require('lodash');
 const generateClients = require('./generate-clients');
 
 module.exports = async function run({ github, context, args }) {
-  console.log(github, context, args);
   const { apiUrl, authSecret } = args;
   const { payload } = context;
   const { inputs, repository } = payload;
