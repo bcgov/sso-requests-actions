@@ -111,7 +111,9 @@ module.exports = async function run({ github, context, args }) {
       });
     }
 
-    const labels = ['auto_generated', clientName];
+    // Github issues API will throw a validation error for issues over 50 chars
+    let labels = ['auto_generated', clientName];
+    labels = labels.map((label) => label.substring(0, 50));
 
     // delete all open issues with the target client before creating another one
     const issuesRes = await github.issues.listForRepo({
@@ -215,3 +217,4 @@ module.exports = async function run({ github, context, args }) {
     return data && data.sha;
   }
 };
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'b' ]
