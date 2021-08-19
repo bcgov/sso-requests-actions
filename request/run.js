@@ -217,4 +217,3 @@ module.exports = async function run({ github, context, args }) {
     return data && data.sha;
   }
 };
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'b' ]
