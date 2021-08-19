@@ -111,19 +111,19 @@ module.exports = async function run({ github, context, args }) {
       });
     }
 
-    // Github issues API will throw a validation error for issues over 50 chars
-    let labels = ['auto_generated', clientName];
-    labels = labels.map((label) => label.substring(0, 50));
+    // Ensure to verify label length < 50 chars if adding client names to labels
+    const labels = ['auto_generated'];
+
 
     // delete all open issues with the target client before creating another one
-    const issuesRes = await github.issues.listForRepo({
-      owner,
-      repo,
-      state: 'open',
-      labels: labels.join(','),
-    });
+    // const issuesRes = await github.issues.listForRepo({
+    //   owner,
+    //   repo,
+    //   state: 'open',
+    //   labels: labels.join(','),
+    // });
 
-    console.log(issuesRes);
+    // console.log(issuesRes);
 
     // TODO:
     // await Promise.all(
