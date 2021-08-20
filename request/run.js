@@ -112,30 +112,26 @@ module.exports = async function run({ github, context, args }) {
     }
 
     // Ensure to verify label length < 50 chars if adding client names to labels
-    const labels = ['auto_generated'];
-
+    const labels = ['auto_generated', 'request', String(requestId)];
 
     // delete all open issues with the target client before creating another one
-    // const issuesRes = await github.issues.listForRepo({
-    //   owner,
-    //   repo,
-    //   state: 'open',
-    //   labels: labels.join(','),
-    // });
+    const issuesRes = await github.issues.listForRepo({
+      owner,
+      repo,
+      state: 'open',
+      labels: labels.join(','),
+    });
 
-    // console.log(issuesRes);
-
-    // TODO:
-    // await Promise.all(
-    //   issuesRes.data.map((issue) => {
-    //     return github.issues.update({
-    //       owner,
-    //       repo,
-    //       issue_number: issue.id,
-    //       state: 'closed',
-    //     });
-    //   }),
-    // );
+    await Promise.all(
+      issuesRes.data.map((issue) => {
+        return github.issues.update({
+          owner,
+          repo,
+          issue_number: issue.number,
+          state: 'closed',
+        });
+      }),
+    );
 
     // create a new pr for the target client
     let pr = await github.pulls.create({
