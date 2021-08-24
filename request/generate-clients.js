@@ -12,7 +12,7 @@ const keycloakRealm = mock.data('keycloak_realm', 'this', {});
 const realms = ['onestopauth', 'onestopauth-basic', 'onestopauth-both', 'onestopauth-business'];
 const allEnvironments = ['dev', 'test', 'prod'];
 
-module.exports = ({ clientName, realmName, validRedirectUris, environments, publicAccess }) => {
+module.exports = ({ clientName, realmName, validRedirectUris, environments, publicAccess, tfModuleRef }) => {
   if (!realms.includes(realmName)) return null;
 
   const getEnvPath = (env) => {
@@ -35,7 +35,7 @@ module.exports = ({ clientName, realmName, validRedirectUris, environments, publ
     const tfg = new TerraformGenerator();
 
     const data = {
-      source: '../../../modules/openid-client',
+      source: `github.com/bcgov/sso-terraform-keycloak-client?ref=${tfModuleRef}`,
       realm_id: keycloakRealm.attr('id'),
       client_name: clientName,
       valid_redirect_uris: validRedirectUris[env] || validRedirectUris,

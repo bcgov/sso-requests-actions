@@ -9,11 +9,12 @@ async function main() {
   const token = core.getInput('github-token', { required: true });
   const apiUrl = core.getInput('api-url', { required: true });
   const authSecret = core.getInput('auth-secret', { required: true });
+  const tfModuleRef = core.getInput('tf-module-ref', { required: true });
   const github = getOctokit(token);
   const result = await run({
     github: github.rest,
     context,
-    args: { apiUrl, authSecret },
+    args: { apiUrl, authSecret, tfModuleRef },
   });
   core.setOutput('result', JSON.stringify(result));
 }
