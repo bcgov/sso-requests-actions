@@ -4,7 +4,7 @@ const _ = require('lodash');
 const generateClients = require('./generate-clients');
 
 module.exports = async function run({ github, context, args }) {
-  const { apiUrl, authSecret } = args;
+  const { apiUrl, authSecret, tfModuleRef } = args;
   const { payload } = context;
   const { inputs, repository } = payload;
   const owner = repository.owner.login;
@@ -26,6 +26,7 @@ module.exports = async function run({ github, context, args }) {
       validRedirectUris,
       environments,
       publicAccess,
+      tfModuleRef,
     });
 
     if (!info) throw Error('failed in client creation');

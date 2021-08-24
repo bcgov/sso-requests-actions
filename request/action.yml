@@ -15,6 +15,10 @@ inputs:
   auth-secret:
     description: The secret to authenticate the API request
     required: true
+  tf-module-ref:
+    description: The branch(ref) to pull the Terraform module from
+    default: dev
+    required: false
 outputs:
   result:
     description: The return value of the script, stringified with `JSON.stringify`
