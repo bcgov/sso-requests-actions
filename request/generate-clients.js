@@ -39,6 +39,7 @@ module.exports = ({ clientName, realmName, validRedirectUris, environments, publ
       realm_id: keycloakRealm.attr('id'),
       client_name: clientName,
       valid_redirect_uris: validRedirectUris[env] || validRedirectUris,
+      description: 'CSS App Created'
     };
 
     if (publicAccess === 'true') {
