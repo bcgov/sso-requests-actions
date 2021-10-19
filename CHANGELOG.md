@@ -10,8 +10,21 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+<a name="v0.6.0"></a>
+## [v0.6.0] - 2021-10-19
+
+- Description
+
+
+<a name="v0.5.0"></a>
+## [v0.5.0] - 2021-08-24
+
+- Use terraform source from modulized repo
+- Delete all open issues before creating another one
+
+
 <a name="v0.4.0"></a>
-## [v0.4.0] - 2021-08-19
+## [v0.4.0] - 2021-08-20
 BUG FIXES:
 - Cleanup
 - Label length
@@ -35,7 +48,9 @@ FEATURES:
 - Add action for request workflow
 
 
-[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.5.0...v0.6.0
+[v0.5.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.1.0...v0.2.0
