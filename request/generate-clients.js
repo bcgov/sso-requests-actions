@@ -40,12 +40,12 @@ module.exports = ({ clientName, realmName, validRedirectUris, environments, publ
       client_name: clientName,
       valid_redirect_uris: validRedirectUris[env] || validRedirectUris,
       description: 'CSS App Created',
-      web_origins: ['+'],
     };
 
     if (publicAccess === 'true') {
       data.access_type = 'PUBLIC';
       data.pkce_code_challenge_method = 'S256';
+      data.web_origins = ['+'];
     }
 
     tfg.module(`client_${clientName}`, data);
