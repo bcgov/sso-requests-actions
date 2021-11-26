@@ -10,12 +10,12 @@ module.exports = async function run({ github, context, args }) {
   const owner = repository.owner.login;
   const repo = repository.name;
 
-  let { requestId, clientName, realmName, validRedirectUris, environments, publicAccess } = inputs;
+  let { requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride } = inputs;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
 
   try {
-    console.log(requestId, clientName, realmName, validRedirectUris, environments, publicAccess);
+    console.log(requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride);
 
     validRedirectUris = JSON.parse(validRedirectUris);
     environments = JSON.parse(environments);
@@ -26,6 +26,7 @@ module.exports = async function run({ github, context, args }) {
       validRedirectUris,
       environments,
       publicAccess,
+      browserFlowOverride,
       tfModuleRef,
     });
 
