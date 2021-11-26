@@ -12,7 +12,15 @@ const keycloakRealm = mock.data('keycloak_realm', 'this', {});
 const realms = ['onestopauth', 'onestopauth-basic', 'onestopauth-both', 'onestopauth-business'];
 const allEnvironments = ['dev', 'test', 'prod'];
 
-module.exports = ({ clientName, realmName, validRedirectUris, environments, publicAccess, tfModuleRef }) => {
+module.exports = ({
+  clientName,
+  realmName,
+  validRedirectUris,
+  environments,
+  publicAccess,
+  browserFlowOverride,
+  tfModuleRef,
+}) => {
   if (!realms.includes(realmName)) return null;
 
   const getEnvPath = (env) => {
@@ -40,6 +48,7 @@ module.exports = ({ clientName, realmName, validRedirectUris, environments, publ
       client_name: clientName,
       valid_redirect_uris: validRedirectUris[env] || validRedirectUris,
       description: 'CSS App Created',
+      browser_authentication_flow: browserFlowOverride || '',
     };
 
     if (publicAccess === 'true') {
