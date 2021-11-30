@@ -1,7 +1,7 @@
 const fs = require('fs');
 const axios = require('axios');
 const _ = require('lodash');
-const generateClients = require('./generate-clients');
+const createClients = require('./create-clients');
 
 module.exports = async function run({ github, context, args }) {
   const { apiUrl, authSecret, tfModuleRef } = args;
@@ -20,7 +20,7 @@ module.exports = async function run({ github, context, args }) {
     validRedirectUris = JSON.parse(validRedirectUris);
     environments = JSON.parse(environments);
 
-    const info = generateClients({
+    const info = createClients({
       clientName,
       realmName,
       validRedirectUris,
