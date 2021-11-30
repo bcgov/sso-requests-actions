@@ -3,11 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const _ = require('lodash');
-const { TerraformGenerator } = require('terraform-generator');
-
-const mock = new TerraformGenerator();
-
-const keycloakRealm = mock.data('keycloak_realm', 'this', {});
+const generateTF = require('./generate-tf');
 
 const realms = ['onestopauth', 'onestopauth-basic', 'onestopauth-both', 'onestopauth-business'];
 const allEnvironments = ['dev', 'test', 'prod'];
@@ -35,40 +31,19 @@ module.exports = ({
     };
   };
 
-  const SEPARATOR = '\n';
-
   const paths = _.map(environments, (env) => {
     const { outputDir, target } = getEnvPath(env);
 
-    const tfg = new TerraformGenerator();
-
-    const data = {
-      source: `github.com/bcgov/sso-terraform-keycloak-client?ref=${tfModuleRef}`,
-      realm_id: keycloakRealm.attr('id'),
-      client_name: clientName,
-      valid_redirect_uris: validRedirectUris[env] || validRedirectUris,
-      description: 'CSS App Created',
-      browser_authentication_flow: browserFlowOverride || '',
-    };
-
-    if (publicAccess === 'true') {
-      data.access_type = 'PUBLIC';
-      data.pkce_code_challenge_method = 'S256';
-      data.web_origins = ['+'];
-    }
-
-    tfg.module(`client_${clientName}`, data);
-
-    const result = tfg.generate();
-
-    const formatted =
-      result.tf
-        .split(SEPARATOR)
-        .filter((v) => v.length > 0)
-        .join(SEPARATOR) + SEPARATOR;
+    const result = generateTF({
+      clientName,
+      validRedirectUris: validRedirectUris[env] || validRedirectUris,
+      publicAccess,
+      browserFlowOverride,
+      tfModuleRef,
+    });
 
     shell.mkdir('-p', outputDir);
-    fs.writeFileSync(target, formatted);
+    fs.writeFileSync(target, result);
 
     child_process.execSync('terraform fmt', { cwd: outputDir });
 
