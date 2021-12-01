@@ -17,6 +17,8 @@ module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOver
     description: 'CSS App Created',
   };
 
+  console.log(`browserFlowOverride: ${browserFlowOverride}, type: ${typeof browserFlowOverride}`)
+
   if (browserFlowOverride && browserFlowOverride !== 'null') {
     const flow = _.snakeCase(`${clientName}-browserflow`);
     tfg.data('keycloak_authentication_flow', flow, {
