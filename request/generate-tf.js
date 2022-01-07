@@ -33,7 +33,7 @@ module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOver
   if (publicAccess === 'true') {
     data.access_type = 'PUBLIC';
     data.pkce_code_challenge_method = 'S256';
-    data.web_origins = ['+'];
+    data.web_origins = validRedirectUris;
   }
 
   tfg.module(`client_${clientName}`, data);
