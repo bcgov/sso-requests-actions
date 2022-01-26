@@ -17,7 +17,6 @@ module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOver
     description: 'CSS App Created',
   };
 
-  console.log(`browserFlowOverride: ${browserFlowOverride}, type: ${typeof browserFlowOverride}`)
   // The GH action converts the null value into a string
   if (browserFlowOverride && browserFlowOverride !== 'null') {
     const flow = _.snakeCase(`${clientName}-browserflow`);
@@ -33,7 +32,7 @@ module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOver
   if (publicAccess === 'true') {
     data.access_type = 'PUBLIC';
     data.pkce_code_challenge_method = 'S256';
-    data.web_origins = validRedirectUris;
+    data.web_origins = validRedirectUris.concat('+');
   }
 
   tfg.module(`client_${clientName}`, data);
