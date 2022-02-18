@@ -11,6 +11,7 @@ module.exports = async function run({ github, context, args }) {
   const repo = repository.name;
 
   let { requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride } = inputs;
+  let emptyPr = false;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
 
@@ -114,7 +115,7 @@ module.exports = async function run({ github, context, args }) {
     }
 
     // Ensure to verify label length < 50 chars if adding client names to labels
-    const labels = ['auto_generated', 'request', String(requestId)];
+    let labels = ['auto_generated', 'request', String(requestId)];
 
     // delete all open issues with the target client before creating another one
     const issuesRes = await github.issues.listForRepo({
@@ -136,6 +137,8 @@ module.exports = async function run({ github, context, args }) {
     );
 
     // create a new pr for the target client
+    // see https://docs.github.com/en/rest/reference/pulls#create-a-pull-request--code-samples
+    // see https://octokit.github.io/rest.js/v18#pulls-create
     let pr = await github.pulls.create({
       owner,
       repo,
@@ -157,8 +160,25 @@ module.exports = async function run({ github, context, args }) {
     });
 
     const {
-      data: { number },
+      data: { number, additions, deletions, changed_files },
     } = pr;
+
+    emptyPr = changed_files + additions + deletions === 0;
+    console.log(`${changed_files} changed files with ${additions} additions and ${deletions} deletions.`);
+
+    if (emptyPr) {
+      console.log('found an empty PR');
+
+      labels = labels.concat('empty_pr');
+
+      // see https://octokit.github.io/rest.js/v18#pulls-update
+      await github.pulls.update({
+        owner,
+        repo,
+        pull_number: number,
+        state: 'closed',
+      });
+    }
 
     await github.issues.addLabels({
       owner,
@@ -169,7 +189,7 @@ module.exports = async function run({ github, context, args }) {
 
     const updateStatus = () =>
       axios.put(
-        apiUrl,
+        `${apiUrl}?status=${emptyPr ? 'empty' : 'create'}`,
         {
           prNumber: number,
           prSuccess: true,
@@ -192,9 +212,9 @@ module.exports = async function run({ github, context, args }) {
 
     return pr;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     axios.put(
-      apiUrl,
+      `${apiUrl}?status=${emptyPr ? 'empty' : 'create'}`,
       {
         prNumber: null,
         prSuccess: false,
