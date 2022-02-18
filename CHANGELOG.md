@@ -10,9 +10,56 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+<a name="v0.14.0"></a>
+## [v0.14.0] - 2022-02-18
+FEATURES:
+- Close empty pr gracefully
+
+
+<a name="v0.13.0"></a>
+## [v0.13.0] - 2022-01-25
+
+- Pr to add + in addition to redirect uris
+
+
+<a name="v0.12.0"></a>
+## [v0.12.0] - 2022-01-07
+
+- Origins
+
+
+<a name="v0.11.0"></a>
+## [v0.11.0] - 2021-12-01
+BUG FIXES
+
+<a name="v0.10.0"></a>
+## [v0.10.0] - 2021-11-30
+
+- Support browser flow override
+
+
+<a name="v0.9.0"></a>
+## [v0.9.0] - 2021-11-26
+
+- Add browser override option
+
+
+<a name="v0.8.0"></a>
+## [v0.8.0] - 2021-11-22
+
+- Only allow web origins for public clients
+
+
+<a name="v0.7.0"></a>
+## [v0.7.0] - 2021-11-19
+
+- Add + for confidential clients
+
+
 <a name="v0.6.0"></a>
 ## [v0.6.0] - 2021-10-19
 
+- Changelog
 - Description
 
 
@@ -48,7 +95,15 @@ FEATURES:
 - Add action for request workflow
 
 
-[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.14.0...HEAD
+[v0.14.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.13.0...v0.14.0
+[v0.13.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.12.0...v0.13.0
+[v0.12.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.11.0...v0.12.0
+[v0.11.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.10.0...v0.11.0
+[v0.10.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.9.0...v0.10.0
+[v0.9.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.8.0...v0.9.0
+[v0.8.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.7.0...v0.8.0
+[v0.7.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.3.0...v0.4.0
