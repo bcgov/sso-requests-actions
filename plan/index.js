@@ -17,6 +17,8 @@ async function main() {
   const allowedDeletions = core.getInput('allowed-deletions', { required: false });
   const allowedUpdates = core.getInput('allowed-updates', { required: false });
   const allowedFileChanges = core.getInput('allowed-file-changes', { required: false });
+  const allowedFileAdditions = core.getInput('allowed-file-additions', { required: false });
+  const allowedFileDeletions = core.getInput('allowed-file-deletions', { required: false });
 
   const github = getOctokit(token);
 
@@ -34,6 +36,8 @@ async function main() {
       allowedDeletions,
       allowedUpdates,
       allowedFileChanges,
+      allowedFileAdditions,
+      allowedFileDeletions,
     },
   });
   core.setOutput('result', JSON.stringify(result));

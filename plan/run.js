@@ -15,6 +15,8 @@ module.exports = async function run({ github, context, args }) {
     allowedDeletions,
     allowedUpdates,
     allowedFileChanges,
+    allowedFileAdditions,
+    allowedFileDeletions,
   } = args;
 
   const {
@@ -36,6 +38,8 @@ module.exports = async function run({ github, context, args }) {
     allowedDeletions,
     allowedUpdates,
     allowedFileChanges,
+    allowedFileAdditions,
+    allowedFileDeletions,
   });
 
   const isAllowedChanges = ({ count, limit, message } = {}) => {
@@ -51,13 +55,15 @@ module.exports = async function run({ github, context, args }) {
     const { planDetails, planSuccess } = data;
     if (!planSuccess) throw new Error('terraform plan failed');
 
-    const { changedFiles, tfAdditions, tfUpdates, tfDeletions } = planDetails;
+    const { changedFiles, prAdditions, prDeletions, tfAdditions, tfUpdates, tfDeletions } = planDetails;
 
     const checks = [
       { count: changedFiles, limit: Number(allowedFileChanges), message: 'too many files changed' },
-      { count: tfAdditions, limit: Number(allowedAdditions), message: 'too many terraform resoures added' },
-      { count: tfUpdates, limit: Number(allowedUpdates), message: 'too many terraform resoures updated' },
-      { count: tfDeletions, limit: Number(allowedDeletions), message: 'too many terraform resoures deleted' },
+      { count: prAdditions, limit: Number(allowedFileAdditions), message: 'too many files added' },
+      { count: prDeletions, limit: Number(allowedFileDeletions), message: 'too many files deleted' },
+      // { count: tfAdditions, limit: Number(allowedAdditions), message: 'too many terraform resoures added' },
+      // { count: tfUpdates, limit: Number(allowedUpdates), message: 'too many terraform resoures updated' },
+      // { count: tfDeletions, limit: Number(allowedDeletions), message: 'too many terraform resoures deleted' },
     ];
 
     return checks.every(isAllowedChanges);

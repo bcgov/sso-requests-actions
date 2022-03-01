@@ -40,7 +40,15 @@ inputs:
     required: false
     default: "21"
   allowed-file-changes:
-    description: "The number of allowed terraform file changes"
+    description: "The number of allowed pr file changes"
+    required: false
+    default: "3"
+  allowed-file-additions:
+    description: "The number of allowed pr file additions"
+    required: false
+    default: "3"
+  allowed-file-deletions:
+    description: "The number of allowed pr file deletions"
     required: false
     default: "3"
 
