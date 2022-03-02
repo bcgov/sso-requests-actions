@@ -46,11 +46,11 @@ inputs:
   allowed-file-additions:
     description: "The number of allowed pr file additions"
     required: false
-    default: "3"
+    default: "100"
   allowed-file-deletions:
     description: "The number of allowed pr file deletions"
     required: false
-    default: "3"
+    default: "100"
 
 outputs:
   result:
