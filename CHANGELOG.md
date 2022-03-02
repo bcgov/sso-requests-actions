@@ -10,6 +10,11 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+<a name="v0.16.0"></a>
+## [v0.16.0] - 0001-01-01
+
+
+
 <a name="v0.15.0"></a>
 ## [v0.15.0] - 2022-03-01
 FEATURES:
@@ -36,6 +41,10 @@ FEATURES:
 
 <a name="v0.11.0"></a>
 ## [v0.11.0] - 2021-12-01
+BUG FIXES:
+- Null string
+- Null string
+- Null string
 
 
 <a name="v0.10.0"></a>
@@ -101,7 +110,8 @@ FEATURES:
 - Add action for request workflow
 
 
-[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.16.0...HEAD
+[v0.16.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.15.0...v0.16.0
 [v0.15.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.14.0...v0.15.0
 [v0.14.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.13.0...v0.14.0
 [v0.13.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.12.0...v0.13.0
