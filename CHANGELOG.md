@@ -36,10 +36,6 @@ FEATURES:
 
 <a name="v0.11.0"></a>
 ## [v0.11.0] - 2021-12-01
-BUG FIXES:
-- Null string
-- Null string
-- Null string
 
 
 <a name="v0.10.0"></a>
