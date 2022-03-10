@@ -11,9 +11,20 @@ module.exports = async function run({ github, context, args }) {
   const repo = repository.name;
 
   let { requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride } = inputs;
-  let emptyPr = false;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
+
+  const resData = {
+    id: requestId,
+    actionNumber: context.runId,
+    repoOwner: owner,
+    repoName: repo,
+    prNumber: null,
+    success: false,
+    changes: {},
+    isEmpty: false,
+    isAllowedToMerge: false,
+  };
 
   try {
     console.log(requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride);
@@ -163,10 +174,13 @@ module.exports = async function run({ github, context, args }) {
       data: { number, additions, deletions, changed_files },
     } = pr;
 
-    emptyPr = changed_files + additions + deletions === 0;
+    resData.changes = { additions, deletions, changedFiles: changed_files };
+    resData.isEmpty = changed_files + additions + deletions === 0;
+    resData.isAllowedToMerge = changed_files <= 3 && additions <= 100 && deletions <= 100;
+
     console.log(`${changed_files} changed files with ${additions} additions and ${deletions} deletions.`);
 
-    if (emptyPr) {
+    if (resData.isEmpty) {
       console.log('found an empty PR');
 
       labels = labels.concat('empty_pr');
@@ -189,12 +203,11 @@ module.exports = async function run({ github, context, args }) {
 
     const updateStatus = () =>
       axios.put(
-        `${apiUrl}?status=${emptyPr ? 'empty' : 'create'}`,
+        `${apiUrl}/batch/pr`,
         {
+          ...resData,
           prNumber: number,
-          prSuccess: true,
-          id: requestId,
-          actionNumber: context.runId,
+          success: true,
         },
         axiosConfig,
       );
@@ -214,12 +227,11 @@ module.exports = async function run({ github, context, args }) {
   } catch (err) {
     console.error(err);
     axios.put(
-      `${apiUrl}?status=${emptyPr ? 'empty' : 'create'}`,
+      `${apiUrl}/batch/pr`,
       {
+        ...resData,
         prNumber: null,
-        prSuccess: false,
-        id: requestId,
-        actionNumber: context.runId,
+        success: false,
       },
       axiosConfig,
     );
