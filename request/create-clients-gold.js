@@ -3,14 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const _ = require('lodash');
-const generateTF = require('./generate-tf');
+const generateGoldTF = require('./generate-gold-tf');
 
-const realms = ['onestopauth', 'onestopauth-basic', 'onestopauth-both', 'onestopauth-business'];
 const allEnvironments = ['dev', 'test', 'prod'];
 
 module.exports = ({
   clientName,
-  realmName,
   publicAccess,
   devValidRedirectUris,
   testValidRedirectUris,
@@ -19,13 +17,15 @@ module.exports = ({
   bceidApproved,
   archived,
   browserFlowOverride,
+  serviceType,
+  devIdps,
+  testIdps,
+  prodIdps,
   tfModuleRef,
 }) => {
-  if (!realms.includes(realmName)) return null;
-
   const getEnvPath = (env) => {
-    const outputDir = path.join(`terraform/keycloak-${env}/realms/${realmName}`);
-    const tfFile = `client-${clientName}.tf`;
+    const outputDir = path.join(`terraform-v2/keycloak-${env}/standard-clients`);
+    const tfFile = `${clientName}.tf`;
     const target = path.join(outputDir, tfFile);
 
     return {
@@ -38,18 +38,23 @@ module.exports = ({
   const paths = _.map(environments, (env) => {
     const { outputDir, target } = getEnvPath(env);
     let validRedirectUris = [];
+    let idps = [];
 
     if (env === 'prod') {
       validRedirectUris = prodValidRedirectUris;
+      idps = prodIdps;
     } else if (env === 'test') {
       validRedirectUris = testValidRedirectUris;
+      idps = testIdps;
     } else {
       validRedirectUris = devValidRedirectUris;
+      idps = devIdps;
     }
 
-    const result = generateTF({
+    const result = generateGoldTF({
       clientName,
       validRedirectUris,
+      idps,
       publicAccess,
       browserFlowOverride,
       tfModuleRef,

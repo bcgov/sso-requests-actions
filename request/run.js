@@ -2,6 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 const _ = require('lodash');
 const createClients = require('./create-clients');
+const createClientsGold = require('./create-clients-gold');
 
 module.exports = async function run({ github, context, args }) {
   const { apiUrl, authSecret, tfModuleRef } = args;
@@ -10,12 +11,32 @@ module.exports = async function run({ github, context, args }) {
   const owner = repository.owner.login;
   const repo = repository.name;
 
-  let { requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride } = inputs;
+  let { integration } = inputs;
+  integration = JSON.parse(integration);
+
+  const {
+    id,
+    projectName,
+    clientName,
+    realm: realmName,
+    publicAccess,
+    devValidRedirectUris,
+    testValidRedirectUris,
+    prodValidRedirectUris,
+    environments,
+    bceidApproved,
+    archived,
+    browserFlowOverride,
+    serviceType,
+    devIdps,
+    testIdps,
+    prodIdps,
+  } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
 
   const resData = {
-    id: requestId,
+    id,
     actionNumber: context.runId,
     repoOwner: owner,
     repoName: repo,
@@ -27,20 +48,44 @@ module.exports = async function run({ github, context, args }) {
   };
 
   try {
-    console.log(requestId, clientName, realmName, validRedirectUris, environments, publicAccess, browserFlowOverride);
+    console.log(integration);
 
-    validRedirectUris = JSON.parse(validRedirectUris);
-    environments = JSON.parse(environments);
-
-    const info = createClients({
-      clientName,
-      realmName,
-      validRedirectUris,
-      environments,
-      publicAccess,
-      browserFlowOverride,
-      tfModuleRef,
-    });
+    const info =
+      serviceType === 'gold'
+        ? createClientsGold({
+            clientName,
+            realmName,
+            publicAccess,
+            devValidRedirectUris,
+            testValidRedirectUris,
+            prodValidRedirectUris,
+            environments,
+            bceidApproved,
+            archived,
+            browserFlowOverride,
+            serviceType,
+            devIdps,
+            testIdps,
+            prodIdps,
+            tfModuleRef,
+          })
+        : createClients({
+            clientName,
+            realmName,
+            publicAccess,
+            devValidRedirectUris,
+            testValidRedirectUris,
+            prodValidRedirectUris,
+            environments,
+            bceidApproved,
+            archived,
+            browserFlowOverride,
+            serviceType,
+            devIdps,
+            testIdps,
+            prodIdps,
+            tfModuleRef,
+          });
 
     if (!info) throw Error('failed in client creation');
 
@@ -126,7 +171,7 @@ module.exports = async function run({ github, context, args }) {
     }
 
     // Ensure to verify label length < 50 chars if adding client names to labels
-    let labels = ['auto_generated', 'request', String(requestId)];
+    let labels = ['auto_generated', 'request', String(id)];
 
     // delete all open issues with the target client before creating another one
     const issuesRes = await github.issues.listForRepo({
