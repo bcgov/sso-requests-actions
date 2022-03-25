@@ -3,7 +3,7 @@ const { TerraformGenerator } = require('terraform-generator');
 
 const mock = new TerraformGenerator();
 
-const keycloakRealm = mock.data('keycloak_realm', 'this', {});
+const realm_id = mock.variable('standard_realm_id');
 const SEPARATOR = '\n';
 
 module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFlowOverride, tfModuleRef }) => {
@@ -11,7 +11,7 @@ module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFl
 
   const data = {
     source: `github.com/bcgov/sso-terraform-keycloak-client?ref=${tfModuleRef}`,
-    realm_id: keycloakRealm.attr('id'),
+    realm_id,
     client_name: clientName,
     valid_redirect_uris: validRedirectUris,
     idps,
@@ -22,7 +22,7 @@ module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFl
   if (browserFlowOverride) {
     const flow = _.snakeCase(`${clientName}-browserflow`);
     tfg.data('keycloak_authentication_flow', flow, {
-      realm_id: keycloakRealm.attr('id'),
+      realm_id,
       alias: browserFlowOverride,
     });
 
@@ -36,7 +36,7 @@ module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFl
     data.web_origins = validRedirectUris.concat('+');
   }
 
-  tfg.module(`client_${clientName}`, data);
+  tfg.module(clientName, data);
 
   const result = tfg.generate();
 
