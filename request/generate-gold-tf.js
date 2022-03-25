@@ -6,7 +6,7 @@ const mock = new TerraformGenerator();
 const keycloakRealm = mock.data('keycloak_realm', 'this', {});
 const SEPARATOR = '\n';
 
-module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOverride, tfModuleRef }) => {
+module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFlowOverride, tfModuleRef }) => {
   const tfg = new TerraformGenerator();
 
   const data = {
@@ -14,6 +14,7 @@ module.exports = ({ clientName, validRedirectUris, publicAccess, browserFlowOver
     realm_id: keycloakRealm.attr('id'),
     client_name: clientName,
     valid_redirect_uris: validRedirectUris,
+    idps,
     description: 'CSS App Created',
   };
 
