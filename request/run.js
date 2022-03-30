@@ -207,9 +207,12 @@ module.exports = async function run({ github, context, args }) {
   #### Environments: \`${environments.join(', ')}\`
   ${environments.map(
     (env) => `<details><summary>Show Details for ${env}</summary>
-  \`\`\`<ul>✔️Valid Redirect Urls${(validRedirectUris[env] || validRedirectUris || []).map(
-    (url) => `<li>${url}</li>`,
-  )}</ul>\`\`\`
+  \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
+    ? devValidRedirectUris || []
+    : env === 'test'
+    ? testValidRedirectUris || []
+    : prodValidRedirectUris || []
+  ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
   </details>`,
   )}`,
       maintainer_can_modify: false,

@@ -51,6 +51,8 @@ module.exports = ({
       idps = devIdps;
     }
 
+    // need to create default scopes here based on their idp selection
+
     const result = generateGoldTF({
       clientName,
       validRedirectUris,
