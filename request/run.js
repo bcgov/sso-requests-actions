@@ -31,6 +31,9 @@ module.exports = async function run({ github, context, args }) {
     devIdps,
     testIdps,
     prodIdps,
+    devRoles,
+    testRoles,
+    prodRoles,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
@@ -67,6 +70,9 @@ module.exports = async function run({ github, context, args }) {
             devIdps,
             testIdps,
             prodIdps,
+            devRoles,
+            testRoles,
+            prodRoles,
             tfModuleRef,
           })
         : createClients({

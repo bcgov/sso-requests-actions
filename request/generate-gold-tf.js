@@ -6,7 +6,7 @@ const mock = new TerraformGenerator();
 const realm_id = mock.variable('standard_realm_id');
 const SEPARATOR = '\n';
 
-module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFlowOverride, tfModuleRef }) => {
+module.exports = ({ clientName, validRedirectUris, roles, idps, publicAccess, browserFlowOverride, tfModuleRef }) => {
   const tfg = new TerraformGenerator();
 
   const data = {
@@ -14,7 +14,8 @@ module.exports = ({ clientName, validRedirectUris, idps, publicAccess, browserFl
     realm_id,
     client_name: clientName,
     valid_redirect_uris: validRedirectUris,
-    idps,
+    roles,
+    idps: idps.concat('common'),
     description: 'CSS App Created',
   };
 
