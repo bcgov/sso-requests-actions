@@ -21,6 +21,9 @@ module.exports = ({
   devIdps,
   testIdps,
   prodIdps,
+  devRoles,
+  testRoles,
+  prodRoles,
   tfModuleRef,
 }) => {
   const getEnvPath = (env) => {
@@ -38,24 +41,28 @@ module.exports = ({
   const paths = _.map(environments, (env) => {
     const { outputDir, target } = getEnvPath(env);
     let validRedirectUris = [];
+    let roles = [];
     let idps = [];
 
     if (env === 'prod') {
       validRedirectUris = prodValidRedirectUris;
+      roles = prodRoles;
       idps = prodIdps;
     } else if (env === 'test') {
       validRedirectUris = testValidRedirectUris;
+      roles = testRoles;
       idps = testIdps;
     } else {
       validRedirectUris = devValidRedirectUris;
+      roles = devRoles;
       idps = devIdps;
     }
 
     // need to create default scopes here based on their idp selection
-
     const result = generateGoldTF({
       clientName,
       validRedirectUris,
+      roles,
       idps,
       publicAccess,
       browserFlowOverride,
