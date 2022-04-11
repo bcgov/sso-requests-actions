@@ -42,20 +42,6 @@ module.exports = (props) => {
     const offlineSessionIdleTimeout = props[`${env}OfflineSessionIdleTimeout`] || '';
     const offlineSessionMaxLifespan = props[`${env}OfflineSessionMaxLifespan`] || '';
 
-    if (env === 'prod') {
-      validRedirectUris = prodValidRedirectUris;
-      roles = prodRoles;
-      idps = prodIdps;
-    } else if (env === 'test') {
-      validRedirectUris = testValidRedirectUris;
-      roles = testRoles;
-      idps = testIdps;
-    } else {
-      validRedirectUris = devValidRedirectUris;
-      roles = devRoles;
-      idps = devIdps;
-    }
-
     // need to create default scopes here based on their idp selection
     const result = generateGoldTF({
       clientName,
