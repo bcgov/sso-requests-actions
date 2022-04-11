@@ -7,25 +7,18 @@ const generateGoldTF = require('./generate-gold-tf');
 
 const allEnvironments = ['dev', 'test', 'prod'];
 
-module.exports = ({
-  clientName,
-  publicAccess,
-  devValidRedirectUris,
-  testValidRedirectUris,
-  prodValidRedirectUris,
-  environments,
-  bceidApproved,
-  archived,
-  browserFlowOverride,
-  serviceType,
-  devIdps,
-  testIdps,
-  prodIdps,
-  devRoles,
-  testRoles,
-  prodRoles,
-  tfModuleRef,
-}) => {
+module.exports = (props) => {
+  const {
+    clientName,
+    publicAccess,
+    environments,
+    bceidApproved,
+    archived,
+    browserFlowOverride,
+    serviceType,
+    tfModuleRef,
+  } = props;
+
   const getEnvPath = (env) => {
     const outputDir = path.join(`terraform-v2/keycloak-${env}/standard-clients`);
     const tfFile = `${clientName}.tf`;
@@ -40,9 +33,14 @@ module.exports = ({
 
   const paths = _.map(environments, (env) => {
     const { outputDir, target } = getEnvPath(env);
-    let validRedirectUris = [];
-    let roles = [];
-    let idps = [];
+    const validRedirectUris = props[`${env}ValidRedirectUris`] || [];
+    const roles = props[`${env}Roles`] || [];
+    const idps = props[`${env}Idps`] || [];
+    const accessTokenLifespan = props[`${env}AccessTokenLifespan`] || '';
+    const sessionIdleTimeout = props[`${env}SessionIdleTimeout`] || '';
+    const sessionMaxLifespan = props[`${env}SessionMaxLifespan`] || '';
+    const offlineSessionIdleTimeout = props[`${env}OfflineSessionIdleTimeout`] || '';
+    const offlineSessionMaxLifespan = props[`${env}OfflineSessionMaxLifespan`] || '';
 
     if (env === 'prod') {
       validRedirectUris = prodValidRedirectUris;
@@ -64,6 +62,11 @@ module.exports = ({
       validRedirectUris,
       roles,
       idps,
+      accessTokenLifespan,
+      sessionIdleTimeout,
+      sessionMaxLifespan,
+      offlineSessionIdleTimeout,
+      offlineSessionMaxLifespan,
       publicAccess,
       browserFlowOverride,
       tfModuleRef,
