@@ -6,7 +6,20 @@ const mock = new TerraformGenerator();
 const realm_id = mock.variable('standard_realm_id');
 const SEPARATOR = '\n';
 
-module.exports = ({ clientName, validRedirectUris, roles, idps, publicAccess, browserFlowOverride, tfModuleRef }) => {
+module.exports = ({
+  clientName,
+  validRedirectUris,
+  roles,
+  idps,
+  accessTokenLifespan,
+  sessionIdleTimeout,
+  sessionMaxLifespan,
+  offlineSessionIdleTimeout,
+  offlineSessionMaxLifespan,
+  publicAccess,
+  browserFlowOverride,
+  tfModuleRef,
+}) => {
   const tfg = new TerraformGenerator();
 
   const data = {
@@ -15,6 +28,11 @@ module.exports = ({ clientName, validRedirectUris, roles, idps, publicAccess, br
     client_name: clientName,
     valid_redirect_uris: validRedirectUris,
     roles,
+    access_token_lifespan: accessTokenLifespan,
+    client_session_idle_timeout: sessionIdleTimeout,
+    client_session_max_lifespan: sessionMaxLifespan,
+    client_offline_session_idle_timeout: offlineSessionIdleTimeout,
+    client_offline_session_max_lifespan: offlineSessionMaxLifespan,
     idps: idps.concat('common'),
     description: 'CSS App Created',
   };
