@@ -3,7 +3,7 @@ const KcAdminClient = require('keycloak-admin').default;
 module.exports = async function run({ context, args }) {
   const getKcAdminClient = async (env) => {
     const kcAdminClient = new KcAdminClient({
-      baseUrl: args[`${env}KeycloakUrl`],
+      baseUrl: args[`${env}KeycloakUrl`] + '/auth',
       realmName: 'master',
       requestConfig: {
         /* Axios request config options https://github.com/axios/axios#request-config */
