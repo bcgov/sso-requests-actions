@@ -23,7 +23,7 @@ module.exports = ({
   const tfg = new TerraformGenerator();
 
   const data = {
-    source: `github.com/bcgov/sso-terraform-keycloak-client?ref=${tfModuleRef}`,
+    source: `github.com/bcgov/sso-terraform-modules?ref=${tfModuleRef}/modules/standard-client`,
     realm_id,
     client_name: clientName,
     valid_redirect_uris: validRedirectUris,
