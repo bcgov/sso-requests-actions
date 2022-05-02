@@ -33,6 +33,14 @@ inputs:
   kc-prod-secret:
     description: "Keycloak client secret in customer prod environment"
     required: true
+  test-siteminder-signing-certificate:
+    description: "Siteminder signing certificate in test environment"
+    required: false
+    default: ""
+  prod-siteminder-signing-certificate:
+    description: "Siteminder signing certificate in prod environment"
+    required: false
+    default: ""
   plan:
     description: "Whether to run Terraform plan"
     required: false
@@ -96,6 +104,8 @@ runs:
         dev_client_secret="${{ inputs.kc-dev-secret }}"
         test_client_secret="${{ inputs.kc-test-secret }}"
         prod_client_secret="${{ inputs.kc-prod-secret }}"
+        test_siteminder_signing_certificate="${{ inputs.test-siteminder-signing-certificate }}"
+        prod_siteminder_signing_certificate="${{ inputs.prod-siteminder-signing-certificate }}"
         EOF
       shell: bash
       working-directory: ${{ inputs.context }}
