@@ -42,8 +42,23 @@ module.exports = async function run({ context, args }) {
     }
   };
 
+  const enforceBrowserConditionalOtp = async (env) => {
+    const kcAdminClient = await getKcAdminClient(env);
+
+    const realm = 'master';
+    const search = { realm, flow: 'browser' };
+    const execs = await kcAdminClient.authenticationManagement.getExecutions(search);
+
+    const otpExe = execs.find((exe) => exe.displayName === 'Browser - Conditional OTP');
+    await kcAdminClient.authenticationManagement.updateExecution(search, {
+      ...otpExe,
+      requirement: 'REQUIRED',
+    });
+  };
+
   try {
     await Promise.all(['dev', 'test', 'prod'].map(updateReviewProfileConfig));
+    await Promise.all(['prod'].map(enforceBrowserConditionalOtp));
     return true;
   } catch (err) {
     console.error(err);
