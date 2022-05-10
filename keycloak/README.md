@@ -1,6 +1,6 @@
 ## Purpose
 
-This common action covers the one of the limitations of Terraform, such that there is no way to control of existing resources, and ensures the target Keycloak instances to be provisioned as:
+This common action covers one of the limitations of Terraform, such that there is no way to control existing resources, and it ensures the target Keycloak instances are provisioned as:
 
-1. Disable `review profile config` execution of the default authentication flow `first broker login`.
-1. Enforce `Browser - Conditional OTP` exection of the default authentication flow `Browser` in `Prod` environment.
+1. `review profile config` execution of the default authentication flow `first broker login` is disabled.
+1. `Browser - Conditional OTP` exection of the default authentication flow `Browser` in `Prod` environment is enforced.
