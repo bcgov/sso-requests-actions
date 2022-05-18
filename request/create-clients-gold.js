@@ -9,7 +9,7 @@ const allEnvironments = ['dev', 'test', 'prod'];
 
 module.exports = (props) => {
   const {
-    clientName,
+    clientId,
     publicAccess,
     environments,
     bceidApproved,
@@ -21,7 +21,7 @@ module.exports = (props) => {
 
   const getEnvPath = (env) => {
     const outputDir = path.join(`terraform-v2/keycloak-${env}/standard-clients`);
-    const tfFile = `${clientName}.tf`;
+    const tfFile = `${clientId}.tf`;
     const target = path.join(outputDir, tfFile);
 
     return {
@@ -35,6 +35,7 @@ module.exports = (props) => {
     const { outputDir, target } = getEnvPath(env);
     const validRedirectUris = props[`${env}ValidRedirectUris`] || [];
     const roles = props[`${env}Roles`] || [];
+    const clientName = props[`${env}LoginTitle`] || '';
     const idps = props[`${env}Idps`] || [];
     const accessTokenLifespan = props[`${env}AccessTokenLifespan`] || '';
     const sessionIdleTimeout = props[`${env}SessionIdleTimeout`] || '';
@@ -44,6 +45,7 @@ module.exports = (props) => {
 
     // need to create default scopes here based on their idp selection
     const result = generateGoldTF({
+      clientId,
       clientName,
       validRedirectUris,
       roles,

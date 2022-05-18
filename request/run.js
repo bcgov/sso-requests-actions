@@ -17,7 +17,7 @@ module.exports = async function run({ github, context, args }) {
   const {
     id,
     projectName,
-    clientName,
+    clientId,
     realm: realmName,
     publicAccess,
     environments,
@@ -34,6 +34,9 @@ module.exports = async function run({ github, context, args }) {
     devRoles,
     testRoles,
     prodRoles,
+    devLoginTitle,
+    testLoginTitle,
+    prodLoginTitle,
     devAccessTokenLifespan,
     devSessionIdleTimeout,
     devSessionMaxLifespan,
@@ -71,7 +74,7 @@ module.exports = async function run({ github, context, args }) {
     const info =
       serviceType === 'gold'
         ? createClientsGold({
-            clientName,
+            clientId,
             realmName,
             publicAccess,
             devValidRedirectUris,
@@ -88,6 +91,9 @@ module.exports = async function run({ github, context, args }) {
             devRoles,
             testRoles,
             prodRoles,
+            devLoginTitle,
+            testLoginTitle,
+            prodLoginTitle,
             devAccessTokenLifespan,
             devSessionIdleTimeout,
             devSessionMaxLifespan,
@@ -106,7 +112,7 @@ module.exports = async function run({ github, context, args }) {
             tfModuleRef,
           })
         : createClients({
-            clientName,
+            clientId,
             realmName,
             publicAccess,
             devValidRedirectUris,
@@ -136,7 +142,7 @@ module.exports = async function run({ github, context, args }) {
       console.error('no main branch');
     }
 
-    const prBranchName = `request/${clientName}-${new Date().getTime()}`;
+    const prBranchName = `request/${clientId}-${new Date().getTime()}`;
 
     await github.git.createRef({
       owner,
@@ -182,7 +188,7 @@ module.exports = async function run({ github, context, args }) {
           sha: await getSHA({ ref: prBranchName, path }),
           branch: prBranchName,
           path,
-          message: `chore: remove a client file for ${clientName}`,
+          message: `chore: remove a client file for ${clientId}`,
         })
         .then(
           (res) => res.data,
@@ -201,7 +207,7 @@ module.exports = async function run({ github, context, args }) {
         sha: await getSHA({ ref: prBranchName, path }),
         branch: prBranchName,
         path,
-        message: `feat: add a client file for ${clientName}`,
+        message: `feat: add a client file for ${clientId}`,
         content: fs.readFileSync(path, { encoding: 'base64' }),
       });
     }
@@ -236,9 +242,9 @@ module.exports = async function run({ github, context, args }) {
       repo,
       base: repository.default_branch,
       head: prBranchName,
-      title: `request: ${mode} client files for ${clientName}`,
+      title: `request: ${mode} client files for ${clientId}`,
       body: `
-  #### Project Name: \`${_.startCase(clientName)}\`
+  #### Project Name: \`${_.startCase(clientId)}\`
   #### Target Realm: \`${realmName}\`
   #### Environments: \`${environments.join(', ')}\`
   ${environments.map(

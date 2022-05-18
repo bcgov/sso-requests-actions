@@ -9,7 +9,7 @@ const realms = ['onestopauth', 'onestopauth-basic', 'onestopauth-both', 'onestop
 const allEnvironments = ['dev', 'test', 'prod'];
 
 module.exports = ({
-  clientName,
+  clientId,
   realmName,
   publicAccess,
   devValidRedirectUris,
@@ -25,7 +25,7 @@ module.exports = ({
 
   const getEnvPath = (env) => {
     const outputDir = path.join(`terraform/keycloak-${env}/realms/${realmName}`);
-    const tfFile = `client-${clientName}.tf`;
+    const tfFile = `client-${clientId}.tf`;
     const target = path.join(outputDir, tfFile);
 
     return {
@@ -48,7 +48,7 @@ module.exports = ({
     }
 
     const result = generateTF({
-      clientName,
+      clientId,
       validRedirectUris,
       publicAccess,
       browserFlowOverride,
