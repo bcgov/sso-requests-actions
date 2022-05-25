@@ -9,11 +9,20 @@ inputs:
   tf-version:
     description: "Terraform version"
     required: true
-  tf-team-token:
-    description: "Terraform cloud team token"
+  tf-s3-bucket:
+    description: "Terraform S3 Remote backend bucket name"
     required: true
-  tf-workspace:
-    description: "Terraform cloud workspace ID"
+  tf-s3-bucket-key:
+    description: "Terraform S3 Remote backend bucket key (path)"
+    required: true
+  tf-s3-access-key:
+    description: "AWS access key to access Terraform S3 Bucket"
+    required: true
+  tf-s3-secret-key:
+    description: "AWS secret key to access Terraform S3 Bucket"
+    required: true
+  tf-s3-role-arn:
+    description: "Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket"
     required: true
   kc-dev-url:
     description: "Keycloak url in customer dev environment"
@@ -113,7 +122,6 @@ runs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: ${{ inputs.tf-version }}
-        cli_config_credentials_token: ${{ inputs.tf-team-token }}
 
     - name: Terraform Format
       id: fmt
@@ -123,14 +131,15 @@ runs:
 
     - name: Terraform Variables
       run: |
-        cat >"versions.tf" <<EOF
+        cat >"config.tf" <<EOF
         terraform {
-          backend "remote" {
-            hostname     = "app.terraform.io"
-            organization = "bcgov"
-            workspaces {
-              name = "${{ inputs.tf-workspace }}"
-            }
+          backend "s3" {
+            bucket     = "${{ inputs.tf-s3-bucket }}"
+            key        = "${{ inputs.tf-s3-bucket-key }}"
+            region     = "ca-central-1"
+            access_key = "${{ inputs.tf-s3-access-key }}"
+            secret_key = "${{ inputs.tf-s3-secret-key }}"
+            role_arn   = "${{ inputs.tf-s3-role-arn }}"
           }
         }
         EOF
