@@ -4,8 +4,18 @@ const path = require('path');
 const shell = require('shelljs');
 const _ = require('lodash');
 const generateGoldTF = require('./generate-gold-tf');
+const generateServiceAccountGoldTF = require('./generate-service-account-gold-tf');
 
 const allEnvironments = ['dev', 'test', 'prod'];
+
+const writeTF = ({ outputDir, target, result }) => {
+  shell.mkdir('-p', outputDir);
+  fs.writeFileSync(target, result);
+
+  child_process.execSync('terraform fmt', { cwd: outputDir });
+
+  return target;
+};
 
 module.exports = (props) => {
   const {
@@ -15,12 +25,14 @@ module.exports = (props) => {
     bceidApproved,
     archived,
     browserFlowOverride,
-    serviceType,
+    teamId,
+    apiServiceAccount,
     tfModuleRef,
   } = props;
 
-  const getEnvPath = (env) => {
-    const outputDir = path.join(`terraform-v2/keycloak-${env}/standard-clients`);
+  const getEnvPath = (env, subdir = 'standard-clients') => {
+    const outputDir = `terraform-v2/keycloak-${env}/${subdir}`;
+    shell.mkdir('-p', outputDir);
     const tfFile = `${clientId}.tf`;
     const target = path.join(outputDir, tfFile);
 
@@ -30,6 +42,18 @@ module.exports = (props) => {
       target,
     };
   };
+
+  if (apiServiceAccount) {
+    const result = generateServiceAccountGoldTF({
+      clientId,
+      teamId,
+      tfModuleRef,
+    });
+
+    const { outputDir, target } = getEnvPath('prod', 'standard-service-accounts');
+    const paths = [writeTF({ outputDir, target, result })];
+    return { paths, allPaths: paths };
+  }
 
   const paths = _.map(environments, (env) => {
     const { outputDir, target } = getEnvPath(env);
@@ -60,12 +84,7 @@ module.exports = (props) => {
       tfModuleRef,
     });
 
-    shell.mkdir('-p', outputDir);
-    fs.writeFileSync(target, result);
-
-    child_process.execSync('terraform fmt', { cwd: outputDir });
-
-    return target;
+    return writeTF({ outputDir, target, result });
   });
 
   return { paths, allPaths: allEnvironments.map((env) => getEnvPath(env).target) };
