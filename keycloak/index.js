@@ -15,6 +15,7 @@ async function main() {
   const devClientSecret = core.getInput('dev-client-secret', { required: true });
   const testClientSecret = core.getInput('test-client-secret', { required: true });
   const prodClientSecret = core.getInput('prod-client-secret', { required: true });
+  const tasks = core.getInput('tasks', { required: true });
 
   const result = await run({
     context,
@@ -28,6 +29,7 @@ async function main() {
       devClientSecret,
       testClientSecret,
       prodClientSecret,
+      tasks,
     },
   });
   core.setOutput('result', JSON.stringify(result));

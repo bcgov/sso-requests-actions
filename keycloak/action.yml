@@ -35,6 +35,9 @@ inputs:
   prod-client-secret:
     description: "The client_secret for the Keycloak client in Master Realm in prod environment"
     required: true
+  tasks:
+    description: "The tasks to run"
+    required: true
 
 outputs:
   result:
