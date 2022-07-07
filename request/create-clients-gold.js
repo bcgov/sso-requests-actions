@@ -21,6 +21,7 @@ module.exports = (props) => {
   const {
     clientId,
     publicAccess,
+    authType,
     environments,
     bceidApproved,
     archived,
@@ -80,6 +81,7 @@ module.exports = (props) => {
       offlineSessionIdleTimeout,
       offlineSessionMaxLifespan,
       publicAccess,
+      authType,
       browserFlowOverride,
       tfModuleRef,
     });
