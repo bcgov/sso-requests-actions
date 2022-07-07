@@ -18,6 +18,7 @@ module.exports = ({
   offlineSessionIdleTimeout,
   offlineSessionMaxLifespan,
   publicAccess,
+  authType,
   browserFlowOverride,
   tfModuleRef,
 }) => {
@@ -56,6 +57,9 @@ module.exports = ({
     data.pkce_code_challenge_method = 'S256';
     data.web_origins = validRedirectUris.concat('+');
   }
+
+  data.standard_flow_enabled = ['browser-login', 'both'].includes(authType);
+  data.service_accounts_enabled = ['service-account', 'both'].includes(authType);
 
   tfg.module(clientId, data);
 
