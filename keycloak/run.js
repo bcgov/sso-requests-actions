@@ -1,6 +1,8 @@
 const KcAdminClient = require('keycloak-admin').default;
 
 module.exports = async function run({ context, args }) {
+  const tasks = (args.tasks || '').split(' ');
+
   const getKcAdminClient = async (env) => {
     const kcAdminClient = new KcAdminClient({
       baseUrl: args[`${env}KeycloakUrl`] + '/auth',
@@ -57,8 +59,18 @@ module.exports = async function run({ context, args }) {
   };
 
   try {
-    await Promise.all(['dev', 'test', 'prod'].map(updateReviewProfileConfig));
-    await Promise.all(['prod'].map(enforceBrowserConditionalOtp));
+    const taskMap = {
+      'update-review-profile-config': () => Promise.all(['dev', 'test', 'prod'].map(updateReviewProfileConfig)),
+      'enforce-browser-conditional-otp': () => Promise.all(['prod'].map(enforceBrowserConditionalOtp)),
+    };
+
+    for (let x = 0; x < tasks.length; x++) {
+      const task = taskMap(tasks[x]);
+      if (!task) return;
+
+      await task();
+    }
+
     return true;
   } catch (err) {
     console.error(err);
