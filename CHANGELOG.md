@@ -10,6 +10,12 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+<a name="v0.35.0"></a>
+## [v0.35.0] - 2022-07-08
+
+- Set valid redirect uris iff standard flow enabled
+
+
 <a name="v0.34.0"></a>
 ## [v0.34.0] - 2022-07-07
 FEATURES:
@@ -220,7 +226,8 @@ FEATURES:
 - Add action for request workflow
 
 
-[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.34.0...HEAD
+[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.35.0...HEAD
+[v0.35.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.34.0...v0.35.0
 [v0.34.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.33.0...v0.34.0
 [v0.33.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.32.0...v0.33.0
 [v0.32.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.31.0...v0.32.0
