@@ -29,7 +29,6 @@ module.exports = ({
     realm_id,
     client_id: clientId,
     client_name: clientName,
-    valid_redirect_uris: validRedirectUris,
     roles,
     access_token_lifespan: accessTokenLifespan,
     client_session_idle_timeout: sessionIdleTimeout,
@@ -60,6 +59,8 @@ module.exports = ({
 
   data.standard_flow_enabled = ['browser-login', 'both'].includes(authType);
   data.service_accounts_enabled = ['service-account', 'both'].includes(authType);
+
+  if (data.standard_flow_enabled) data.valid_redirect_uris = validRedirectUris;
 
   tfg.module(clientId, data);
 
