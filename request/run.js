@@ -4,6 +4,10 @@ const _ = require('lodash');
 const createClients = require('./create-clients');
 const createClientsGold = require('./create-clients-gold');
 
+const ALLOWED_CHANGED_FILES = 3;
+const ALLOWED_ADDITIONS = 300;
+const ALLOWED_DELETIONS = 300;
+
 module.exports = async function run({ github, context, args }) {
   const { apiUrl, authSecret, tfModuleRef } = args;
   const { payload } = context;
@@ -74,66 +78,7 @@ module.exports = async function run({ github, context, args }) {
   try {
     console.log(integration);
 
-    const info =
-      serviceType === 'gold'
-        ? createClientsGold({
-            clientId,
-            realmName,
-            publicAccess,
-            devValidRedirectUris,
-            testValidRedirectUris,
-            prodValidRedirectUris,
-            environments,
-            bceidApproved,
-            archived,
-            browserFlowOverride,
-            serviceType,
-            authType,
-            teamId,
-            apiServiceAccount,
-            devIdps,
-            testIdps,
-            prodIdps,
-            devRoles,
-            testRoles,
-            prodRoles,
-            devLoginTitle,
-            testLoginTitle,
-            prodLoginTitle,
-            devAccessTokenLifespan,
-            devSessionIdleTimeout,
-            devSessionMaxLifespan,
-            devOfflineSessionIdleTimeout,
-            devOfflineSessionMaxLifespan,
-            testAccessTokenLifespan,
-            testSessionIdleTimeout,
-            testSessionMaxLifespan,
-            testOfflineSessionIdleTimeout,
-            testOfflineSessionMaxLifespan,
-            prodAccessTokenLifespan,
-            prodSessionIdleTimeout,
-            prodSessionMaxLifespan,
-            prodOfflineSessionIdleTimeout,
-            prodOfflineSessionMaxLifespan,
-            tfModuleRef,
-          })
-        : createClients({
-            clientId,
-            realmName,
-            publicAccess,
-            devValidRedirectUris,
-            testValidRedirectUris,
-            prodValidRedirectUris,
-            environments,
-            bceidApproved,
-            archived,
-            browserFlowOverride,
-            serviceType,
-            devIdps,
-            testIdps,
-            prodIdps,
-            tfModuleRef,
-          });
+    const info = serviceType === 'gold' ? createClientsGold(integration) : createClients(integration);
 
     if (!info) throw Error('failed in client creation');
 
@@ -272,7 +217,8 @@ module.exports = async function run({ github, context, args }) {
 
     resData.changes = { additions, deletions, changedFiles: changed_files };
     resData.isEmpty = changed_files + additions + deletions === 0;
-    resData.isAllowedToMerge = changed_files <= 3 && additions <= 100 && deletions <= 100;
+    resData.isAllowedToMerge =
+      changed_files <= ALLOWED_CHANGED_FILES && additions <= ALLOWED_ADDITIONS && deletions <= ALLOWED_DELETIONS;
 
     console.log(`${changed_files} changed files with ${additions} additions and ${deletions} deletions.`);
 
