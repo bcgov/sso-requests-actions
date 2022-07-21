@@ -65,7 +65,7 @@ module.exports = async function run({ context, args }) {
     };
 
     for (let x = 0; x < tasks.length; x++) {
-      const task = taskMap(tasks[x]);
+      const task = taskMap[tasks[x]];
       if (!task) return;
 
       await task();
