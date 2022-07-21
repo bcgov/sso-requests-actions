@@ -78,7 +78,8 @@ module.exports = async function run({ github, context, args }) {
   try {
     console.log(integration);
 
-    const info = serviceType === 'gold' ? createClientsGold(integration) : createClients(integration);
+    const clientData = { ...integration, realmName, tfModuleRef };
+    const info = serviceType === 'gold' ? createClientsGold(clientData) : createClients(clientData);
 
     if (!info) throw Error('failed in client creation');
 
