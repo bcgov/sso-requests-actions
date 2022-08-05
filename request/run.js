@@ -121,11 +121,7 @@ module.exports = async function run({ github, context, args }) {
 
       mode = 'add';
     } else {
-      if (paths.length === 0) {
-        mode = 'delete';
-      } else {
-        mode = 'update';
-      }
+      mode = archived ? 'delete' : 'update';
     }
 
     console.log('mode', mode);
@@ -150,18 +146,20 @@ module.exports = async function run({ github, context, args }) {
 
     console.log(paths);
 
-    // create the requested client files
-    for (let x = 0; x < paths.length; x++) {
-      const path = paths[x];
-      await github.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        sha: await getSHA({ ref: prBranchName, path }),
-        branch: prBranchName,
-        path,
-        message: `feat: add a client file for ${clientId}`,
-        content: fs.readFileSync(path, { encoding: 'base64' }),
-      });
+    if (!archived) {
+      // create the requested client files
+      for (let x = 0; x < paths.length; x++) {
+        const path = paths[x];
+        await github.repos.createOrUpdateFileContents({
+          owner,
+          repo,
+          sha: await getSHA({ ref: prBranchName, path }),
+          branch: prBranchName,
+          path,
+          message: `feat: add a client file for ${clientId}`,
+          content: fs.readFileSync(path, { encoding: 'base64' }),
+        });
+      }
     }
 
     // Ensure to verify label length < 50 chars if adding client names to labels
