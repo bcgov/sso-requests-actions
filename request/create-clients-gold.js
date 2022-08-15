@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const _ = require('lodash');
-const generateGoldTF = require('./generate-gold-tf');
+const generateOIDCGoldTF = require('./generate-oidc-gold-tf');
+const generateSAMLGoldTF = require('./generate-saml-gold-tf');
 const generateServiceAccountGoldTF = require('./generate-service-account-gold-tf');
 
 const allEnvironments = ['dev', 'test', 'prod'];
@@ -21,6 +22,7 @@ module.exports = (props) => {
   const {
     clientId,
     publicAccess,
+    protocol,
     authType,
     environments,
     bceidApproved,
@@ -56,8 +58,7 @@ module.exports = (props) => {
     return { paths, allPaths: paths };
   }
 
-  const paths = _.map(environments, (env) => {
-    const { outputDir, target } = getEnvPath(env);
+  const generateOIDC = (env) => {
     const validRedirectUris = props[`${env}ValidRedirectUris`] || [];
     const roles = props[`${env}Roles`] || [];
     const clientName = props[`${env}LoginTitle`] || '';
@@ -68,8 +69,7 @@ module.exports = (props) => {
     const offlineSessionIdleTimeout = props[`${env}OfflineSessionIdleTimeout`] || '';
     const offlineSessionMaxLifespan = props[`${env}OfflineSessionMaxLifespan`] || '';
 
-    // need to create default scopes here based on their idp selection
-    const result = generateGoldTF({
+    return generateOIDCGoldTF({
       clientId,
       clientName,
       validRedirectUris,
@@ -85,6 +85,30 @@ module.exports = (props) => {
       browserFlowOverride,
       tfModuleRef,
     });
+  };
+
+  const generateSAML = (env) => {
+    const validRedirectUris = props[`${env}ValidRedirectUris`] || [];
+    const roles = props[`${env}Roles`] || [];
+    const clientName = props[`${env}LoginTitle`] || '';
+    const idps = props[`${env}Idps`] || [];
+    const assertionLifespan = props[`${env}AssertionLifespan`] || '';
+
+    return generateSAMLGoldTF({
+      clientId,
+      clientName,
+      validRedirectUris,
+      roles,
+      idps,
+      assertionLifespan,
+      browserFlowOverride,
+      tfModuleRef,
+    });
+  };
+
+  const paths = _.map(environments, (env) => {
+    const { outputDir, target } = getEnvPath(env);
+    const result = protocol === 'saml' ? generateSAML(env) : generateOIDC(env);
 
     return writeTF({ outputDir, target, result });
   });
