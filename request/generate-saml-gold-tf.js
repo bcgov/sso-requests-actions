@@ -18,11 +18,6 @@ module.exports = ({
 }) => {
   const tfg = new TerraformGenerator();
 
-  assertion_lifespan = '120';
-
-  override_authentication_flow = true;
-  browser_authentication_flow = data.keycloak_authentication_flow.saml_test_browserflow.id;
-
   const data = {
     source: `github.com/bcgov/sso-terraform-modules?ref=${tfModuleRef}/modules/standard-client-saml`,
     realm_id,
