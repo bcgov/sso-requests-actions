@@ -59,6 +59,7 @@ module.exports = async function run({ github, context, args }) {
     prodSessionMaxLifespan,
     prodOfflineSessionIdleTimeout,
     prodOfflineSessionMaxLifespan,
+    webOrigins,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
