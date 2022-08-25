@@ -9,11 +9,16 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+<a name="v0.36.0"></a>
+## [v0.36.0] - 2022-08-25
+
+- Set weborigins for service accounts 
+
 
 <a name="v0.35.0"></a>
 ## [v0.35.0] - 2022-07-08
 
-- Set valid redirect uris iff standard flow enabled
+- Set valid redirect uris if standard flow enabled
 
 
 <a name="v0.34.0"></a>

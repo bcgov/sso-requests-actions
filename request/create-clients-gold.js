@@ -51,6 +51,7 @@ module.exports = (props) => {
       clientId,
       teamId,
       tfModuleRef,
+      webOrigins,
     });
 
     const { outputDir, target } = getEnvPath('prod', 'standard-service-accounts');

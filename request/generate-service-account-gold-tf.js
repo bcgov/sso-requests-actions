@@ -6,7 +6,7 @@ const mock = new TerraformGenerator();
 const realm_id = mock.variable('standard_realm_id');
 const SEPARATOR = '\n';
 
-module.exports = ({ clientId, teamId, tfModuleRef }) => {
+module.exports = ({ clientId, teamId, tfModuleRef, webOrigins }) => {
   const tfg = new TerraformGenerator();
 
   const data = {
@@ -15,6 +15,7 @@ module.exports = ({ clientId, teamId, tfModuleRef }) => {
     client_id: clientId,
     team_id: teamId,
     description: 'CSS App Created',
+    web_origins: webOrigins,
   };
 
   tfg.module(clientId, data);
