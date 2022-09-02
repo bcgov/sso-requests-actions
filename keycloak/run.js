@@ -58,15 +58,21 @@ module.exports = async function run({ context, args }) {
     });
   };
 
+  const deleteUnusedClientScopes = async (env) => {
+    const kcAdminClient = await getKcAdminClient(env);
+    await kcAdminClient.clientScopes.delByName({ realm: 'standard', name: 'role_list' }).catch(() => null);
+  };
+
   try {
     const taskMap = {
       'update-review-profile-config': () => Promise.all(['dev', 'test', 'prod'].map(updateReviewProfileConfig)),
+      'delete-unused-client-scopes': () => Promise.all(['dev', 'test', 'prod'].map(deleteUnusedClientScopes)),
       'enforce-browser-conditional-otp': () => Promise.all(['prod'].map(enforceBrowserConditionalOtp)),
     };
 
     for (let x = 0; x < tasks.length; x++) {
       const task = taskMap[tasks[x]];
-      if (!task) return;
+      if (!task) continue;
 
       await task();
     }
