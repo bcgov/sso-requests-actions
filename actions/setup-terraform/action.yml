@@ -87,6 +87,14 @@ inputs:
     description: "Azure IDIR Client Secret in prod environment"
     required: false
     default: ""
+  github-client-id:
+    description: "GitHub Client ID"
+    required: false
+    default: ""
+  github-client-secret:
+    description: "GitHub Client Secret"
+    required: false
+    default: ""
 
   plan:
     description: "Whether to run Terraform plan"
@@ -162,6 +170,8 @@ runs:
         prod_azureidir_tenant_id="${{ inputs.prod-azureidir-tenant-id }}"
         prod_azureidir_client_id="${{ inputs.prod-azureidir-client-id }}"
         prod_azureidir_client_secret="${{ inputs.prod-azureidir-client-secret }}"
+        github_client_id="${{ inputs.github-client-id }}"
+        github_client_secret="${{ inputs.github-client-secret }}"
         EOF
       shell: bash
       working-directory: ${{ inputs.context }}
