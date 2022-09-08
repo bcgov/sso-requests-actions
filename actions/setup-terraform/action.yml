@@ -63,6 +63,14 @@ inputs:
     description: "Azure IDIR Client Secret in dev environment"
     required: false
     default: ""
+  dev-github-client-id:
+    description: "GitHub Client ID in dev environment"
+    required: false
+    default: ""
+  dev-github-client-secret:
+    description: "GitHub Client Secret in dev environment"
+    required: false
+    default: ""
   test-azureidir-tenant-id:
     description: "Azure IDIR Tenant ID in test environment"
     required: false
@@ -73,6 +81,14 @@ inputs:
     default: ""
   test-azureidir-client-secret:
     description: "Azure IDIR Client Secret in test environment"
+    required: false
+    default: ""
+  test-github-client-id:
+    description: "GitHub Client ID in test environment"
+    required: false
+    default: ""
+  test-github-client-secret:
+    description: "GitHub Client Secret in test environment"
     required: false
     default: ""
   prod-azureidir-tenant-id:
@@ -87,12 +103,12 @@ inputs:
     description: "Azure IDIR Client Secret in prod environment"
     required: false
     default: ""
-  github-client-id:
-    description: "GitHub Client ID"
+  prod-github-client-id:
+    description: "GitHub Client ID in prod environment"
     required: false
     default: ""
-  github-client-secret:
-    description: "GitHub Client Secret"
+  prod-github-client-secret:
+    description: "GitHub Client Secret in prod environment"
     required: false
     default: ""
 
@@ -164,14 +180,18 @@ runs:
         dev_azureidir_tenant_id="${{ inputs.dev-azureidir-tenant-id }}"
         dev_azureidir_client_id="${{ inputs.dev-azureidir-client-id }}"
         dev_azureidir_client_secret="${{ inputs.dev-azureidir-client-secret }}"
+        dev_github_client_id="${{ inputs.github-client-id }}"
+        dev_github_client_secret="${{ inputs.github-client-secret }}"
         test_azureidir_tenant_id="${{ inputs.test-azureidir-tenant-id }}"
         test_azureidir_client_id="${{ inputs.test-azureidir-client-id }}"
         test_azureidir_client_secret="${{ inputs.test-azureidir-client-secret }}"
+        test_github_client_id="${{ inputs.github-client-id }}"
+        test_github_client_secret="${{ inputs.github-client-secret }}"
         prod_azureidir_tenant_id="${{ inputs.prod-azureidir-tenant-id }}"
         prod_azureidir_client_id="${{ inputs.prod-azureidir-client-id }}"
         prod_azureidir_client_secret="${{ inputs.prod-azureidir-client-secret }}"
-        github_client_id="${{ inputs.github-client-id }}"
-        github_client_secret="${{ inputs.github-client-secret }}"
+        prod_github_client_id="${{ inputs.github-client-id }}"
+        prod_github_client_secret="${{ inputs.github-client-secret }}"
         EOF
       shell: bash
       working-directory: ${{ inputs.context }}
