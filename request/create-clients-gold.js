@@ -32,6 +32,7 @@ module.exports = (props) => {
     apiServiceAccount,
     tfModuleRef,
     webOrigins,
+    additionalRoleAttribute,
   } = props;
 
   const getEnvPath = (env, subdir = 'standard-clients') => {
@@ -86,6 +87,7 @@ module.exports = (props) => {
       authType,
       browserFlowOverride,
       tfModuleRef,
+      additionalRoleAttribute,
     });
   };
 
@@ -105,6 +107,7 @@ module.exports = (props) => {
       assertionLifespan,
       browserFlowOverride,
       tfModuleRef,
+      additionalRoleAttribute,
     });
   };
 

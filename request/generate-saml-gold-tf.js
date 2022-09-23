@@ -15,6 +15,7 @@ module.exports = ({
   assertionLifespan,
   browserFlowOverride,
   tfModuleRef,
+  additionalRoleAttribute,
 }) => {
   const tfg = new TerraformGenerator();
 
@@ -28,6 +29,7 @@ module.exports = ({
     valid_redirect_uris: validRedirectUris,
     idps: idps.concat('common'),
     description: 'CSS App Created',
+    additional_role_attribute: additionalRoleAttribute,
   };
 
   // The GH action converts the null value into a string

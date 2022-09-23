@@ -21,6 +21,7 @@ module.exports = ({
   authType,
   browserFlowOverride,
   tfModuleRef,
+  additionalRoleAttribute,
 }) => {
   const tfg = new TerraformGenerator();
 
@@ -37,6 +38,7 @@ module.exports = ({
     client_offline_session_max_lifespan: offlineSessionMaxLifespan,
     idps: idps.concat('common'),
     description: 'CSS App Created',
+    additional_role_attribute: additionalRoleAttribute,
   };
 
   // The GH action converts the null value into a string
