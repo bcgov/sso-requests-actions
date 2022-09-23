@@ -15,6 +15,9 @@ inputs:
   tf-s3-bucket-key:
     description: "Terraform S3 Remote backend bucket key (path)"
     required: true
+  tf-s3-dynamodb-table:
+    description: "Terraform S3 Remote backend DynamoDB table"
+    required: true
   tf-s3-access-key:
     description: "AWS access key to access Terraform S3 Bucket"
     required: true
@@ -158,12 +161,13 @@ runs:
         cat >"config.tf" <<EOF
         terraform {
           backend "s3" {
-            bucket     = "${{ inputs.tf-s3-bucket }}"
-            key        = "${{ inputs.tf-s3-bucket-key }}"
-            region     = "ca-central-1"
-            access_key = "${{ inputs.tf-s3-access-key }}"
-            secret_key = "${{ inputs.tf-s3-secret-key }}"
-            role_arn   = "${{ inputs.tf-s3-role-arn }}"
+            bucket         = "${{ inputs.tf-s3-bucket }}"
+            key            = "${{ inputs.tf-s3-bucket-key }}"
+            region         = "ca-central-1"
+            dynamodb_table = "${{ inputs.tf-s3-dynamodb-table }}"
+            access_key     = "${{ inputs.tf-s3-access-key }}"
+            secret_key     = "${{ inputs.tf-s3-secret-key }}"
+            role_arn       = "${{ inputs.tf-s3-role-arn }}"
           }
         }
         EOF
