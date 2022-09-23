@@ -1,12 +1,16 @@
-const generateTF = require('../request/generate-gold-tf');
+const generateTF = require('../request/generate-oidc-gold-tf');
 
 // TODO: convert this into the unit tests
 const result = generateTF({
-  clientName: 'test-client',
+  clientId: 'test-client',
+  clientName: 'Test Client',
   validRedirectUris: ['http://localhost:3000'],
+  idps: ['idir', 'github'],
   publicAccess: true,
-  browserFlowOverride: 'idir redirector',
+  authType: 'browser-login',
+  browserFlowOverride: 'idir stopper',
   tfModuleRef: 'dev',
+  additionalRoleAttribute: 'groups',
 });
 
 console.log(result);

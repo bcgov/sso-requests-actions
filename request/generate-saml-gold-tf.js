@@ -34,14 +34,12 @@ module.exports = ({
 
   // The GH action converts the null value into a string
   if (browserFlowOverride) {
-    const flow = _.snakeCase(`${clientId}-browserflow`);
-    tfg.data('keycloak_authentication_flow', flow, {
-      realm_id,
-      alias: browserFlowOverride,
-    });
-
     data.override_authentication_flow = true;
-    data.browser_authentication_flow = mock.data('keycloak_authentication_flow', flow, {}).id;
+    data.browser_authentication_flow = mock.data(
+      'keycloak_authentication_flow',
+      _.snakeCase(browserFlowOverride),
+      {},
+    ).id;
   }
 
   tfg.module(clientId, data);
