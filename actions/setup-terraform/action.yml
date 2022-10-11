@@ -27,7 +27,7 @@ inputs:
   tf-s3-role-arn:
     description: "Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket"
     required: true
-  kc-version:
+  kc-provider-version:
     description: "Keycloak Terraform provider version"
     required: true
   kc-dev-url:
@@ -175,7 +175,7 @@ runs:
           required_providers {
             keycloak = {
               source  = "mrparkers/keycloak"
-              version = "${{ inputs.kc-version }}"
+              version = "${{ inputs.kc-provider-version }}"
             }
           }
         }
