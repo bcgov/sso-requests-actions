@@ -58,6 +58,44 @@ module.exports = async function run({ context, args }) {
     });
   };
 
+  const createMasterViewer = async (env) => {
+    const realm = 'master';
+    const viewer = 'master-viewer';
+
+    const kcAdminClient = await getKcAdminClient(env);
+    const existingRole = await kcAdminClient.roles.findOneByName({ name: viewer, realm });
+
+    // create the `viewer` role if not exists
+    if (!existingRole) {
+      await kcAdminClient.roles.create({
+        name: viewer,
+        description: viewer,
+        clientRole: false,
+        containerId: 'master',
+      });
+    }
+
+    // find all client roles that has viewer privileges for each realm
+    const clients = await kcAdminClient.clients.find({ realm });
+    const compositeRoles = [];
+    await Promise.all(
+      clients.map(async (client) => {
+        if (!client.clientId.endsWith('-realm')) return;
+
+        const roles = await kcAdminClient.clients.listRoles({ realm, id: client.id });
+        roles.forEach((role) => {
+          if (role.name.startsWith('view-') || role.name.startsWith('query-')) {
+            compositeRoles.push(role);
+          }
+        });
+      }),
+    );
+
+    // assign composite roles to the `viewer` role
+    const role = await kcAdminClient.roles.findOneByName({ realm, name: viewer });
+    await kcAdminClient.roles.createComposite({ roleId: role.id }, compositeRoles);
+  };
+
   const deleteUnusedClientScopes = async (env) => {
     const kcAdminClient = await getKcAdminClient(env);
     await kcAdminClient.clientScopes.delByName({ realm: 'standard', name: 'role_list' }).catch(() => null);
@@ -68,6 +106,7 @@ module.exports = async function run({ context, args }) {
       'update-review-profile-config': () => Promise.all(['dev', 'test', 'prod'].map(updateReviewProfileConfig)),
       'delete-unused-client-scopes': () => Promise.all(['dev', 'test', 'prod'].map(deleteUnusedClientScopes)),
       'enforce-browser-conditional-otp': () => Promise.all(['prod'].map(enforceBrowserConditionalOtp)),
+      'create-master-viewer': () => Promise.all(['dev', 'test', 'prod'].map(createMasterViewer)),
     };
 
     for (let x = 0; x < tasks.length; x++) {
