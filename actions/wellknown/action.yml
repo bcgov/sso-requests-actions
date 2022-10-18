@@ -1,0 +1,38 @@
+name: Keycloak Well-Known
+description: "Fetch Keycloak OIDC configuration"
+
+inputs:
+  discovery-url:
+    description: "The OIDC Discovery URL"
+    required: true
+
+outputs:
+  config:
+    description: "The configuration pulled from the Discovery URL"
+    value: ${{ steps.config.outputs.JSON }}
+
+runs:
+  using: composite
+  steps:
+    - name: Fetch Well-Known
+      id: oidc
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: ${{ inputs.discovery-url }}
+        method: "GET"
+
+    - name: Fetch JWKS
+      id: jwks
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: ${{ fromJson(steps.oidc.outputs.response).jwks_uri }}
+        method: "GET"
+
+    - name: Build JSON config
+      id: config
+      run: |
+        issuer=${{ fromJson(steps.oidc.outputs.response).issuer }}
+        jwks=${{ toJSON(steps.jwks.outputs.response) }}
+        json=$(jq -c --null-input --arg issuer "$issuer" --argjson jwks "$jwks"  '{"issuer": $issuer, "jwks": $jwks}')
+        echo "JSON=$json" >> $GITHUB_OUTPUT
+      shell: bash
