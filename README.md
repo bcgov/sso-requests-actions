@@ -1,5 +1,7 @@
 # sso-requests-actions
 
+![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
+
 GitHub Actions to support sso-requests development process
 
 ## Related repositories
