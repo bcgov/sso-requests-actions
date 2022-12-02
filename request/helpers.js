@@ -32,19 +32,21 @@ const buildPullRequestBody = (integration) => {
   `);
   }
 
-  body = body.concat(
-    `${environments.map(
-      (env) => `<details>
-  <summary>Show Details for ${env}</summary>
-  \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
-    ? devValidRedirectUris || []
-    : env === 'test'
-    ? testValidRedirectUris || []
-    : prodValidRedirectUris || []
-  ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
-  </details>`,
-    )}`,
-  );
+  if (authType === 'browser-login' && !apiServiceAccount) {
+    body = body.concat(
+      `${environments.map(
+        (env) => `<details>
+      <summary>Show Details for ${env}</summary>
+      \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
+        ? devValidRedirectUris || []
+        : env === 'test'
+        ? testValidRedirectUris || []
+        : prodValidRedirectUris || []
+      ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
+      </details>`,
+      )}`,
+    );
+  }
 
   return body;
 };
