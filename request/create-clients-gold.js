@@ -35,6 +35,8 @@ module.exports = (props) => {
     additionalRoleAttribute,
   } = props;
 
+  const headerWithoutTitleTheme = 'bcgov-idp-stopper-no-header-title';
+
   const getEnvPath = (env, subdir = 'standard-clients') => {
     const outputDir = `terraform-v2/keycloak-${env}/${subdir}`;
     shell.mkdir('-p', outputDir);
@@ -71,6 +73,7 @@ module.exports = (props) => {
     const sessionMaxLifespan = props[`${env}SessionMaxLifespan`] || '';
     const offlineSessionIdleTimeout = props[`${env}OfflineSessionIdleTimeout`] || '';
     const offlineSessionMaxLifespan = props[`${env}OfflineSessionMaxLifespan`] || '';
+    const loginTheme = !props[`${env}DisplayHeaderTitle`] ? headerWithoutTitleTheme : '';
 
     return generateOIDCGoldTF({
       clientId,
@@ -88,6 +91,7 @@ module.exports = (props) => {
       browserFlowOverride,
       tfModuleRef,
       additionalRoleAttribute,
+      loginTheme,
     });
   };
 
