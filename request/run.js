@@ -63,6 +63,9 @@ module.exports = async function run({ github, context, args }) {
     devDisplayHeaderTitle,
     testDisplayHeaderTitle,
     prodDisplayHeaderTitle,
+    requester,
+    accountableEntity,
+    idpNames,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
@@ -201,8 +204,11 @@ module.exports = async function run({ github, context, args }) {
   #### Project Name: \`${_.startCase(clientId)}\`
   #### Target Realm: \`${realmName}\`
   #### Environments: \`${environments.join(', ')}\`
+  #### Accountable person(s): \`${accountableEntity}\`
+  #### Submitted by: \`${requester}\`
   ${environments.map(
     (env) => `<details><summary>Show Details for ${env}</summary>
+  \`\`\`<ul>✔️Identity providers${idpNames.foreach((idp) => `<li>${idp}</li>`)}</ul><br>\`\`\`
   \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
     ? devValidRedirectUris || []
     : env === 'test'
