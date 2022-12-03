@@ -15,36 +15,32 @@ const buildPullRequestBody = (integration) => {
     prodValidRedirectUris,
   } = integration;
 
-  let body = `
-  #### Project Name: \`${_.startCase(clientId)}\`
+  let body = apiServiceAccount
+    ? ``
+    : `
+  #### Project Name: \`${_.startCase(clientId)}\``;
+
+  body = body.concat(`
   #### Target Realm: \`${realmName}\`
   #### Environments: \`${environments.join(', ')}\`
-  `;
-
-  if (authType === 'browser-login' && !apiServiceAccount) {
-    body = body.concat(`#### Accountable person(s): \`${accountableEntity}\`
-  #### Submitted by: \`${requester}\``);
-  }
-
-  if (!apiServiceAccount) {
-    body = body.concat(`
-  #### Identity providers: \`${idpNames.join(', ')}\`
   `);
-  }
 
-  if (authType === 'browser-login' && !apiServiceAccount) {
+  if (authType !== 'service-account' && !apiServiceAccount) {
     body = body.concat(
-      `${environments.map(
-        (env) => `<details>
-      <summary>Show Details for ${env}</summary>
-      \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
-        ? devValidRedirectUris || []
-        : env === 'test'
-        ? testValidRedirectUris || []
-        : prodValidRedirectUris || []
-      ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
-      </details>`,
-      )}`,
+      `#### Accountable person(s): \`${accountableEntity}\`
+  #### Submitted by: \`${requester}\`
+  #### Identity providers: \`${idpNames.join(', ')}\`
+  ${environments.map(
+    (env) => `<details>
+    <summary>Show Details for ${env}</summary>
+    \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
+      ? devValidRedirectUris || []
+      : env === 'test'
+      ? testValidRedirectUris || []
+      : prodValidRedirectUris || []
+    ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
+    </details>`,
+  )}`,
     );
   }
 
