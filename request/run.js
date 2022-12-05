@@ -192,8 +192,6 @@ module.exports = async function run({ github, context, args }) {
       }),
     );
 
-    const prBody = buildPullRequestBody(github, integration);
-
     // create a new pr for the target client
     // see https://docs.github.com/en/rest/reference/pulls#create-a-pull-request--code-samples
     // see https://octokit.github.io/rest.js/v18#pulls-create
@@ -203,7 +201,7 @@ module.exports = async function run({ github, context, args }) {
       base: repository.default_branch,
       head: prBranchName,
       title: `request: ${mode} client files for ${clientId}`,
-      body: buildPullRequestBody(github, integration),
+      body: buildPullRequestBody(integration),
       maintainer_can_modify: false,
     });
 

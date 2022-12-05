@@ -6,10 +6,10 @@ const buildPullRequestBody = (integration) => {
     authType,
     clientId,
     realm,
-    environments,
+    environments = [],
     accountableEntity,
     requester,
-    idpNames,
+    idpNames = [],
     devValidRedirectUris,
     testValidRedirectUris,
     prodValidRedirectUris,
@@ -20,7 +20,7 @@ const buildPullRequestBody = (integration) => {
 
   let body = `#### Project Name: \`${projectName}\`
   #### Client Id: \`${clientId}\`
-  #### Target Realm: \`${defaultRealm}\`
+  #### Target Realm: \`${realm || defaultRealm}\`
   #### Submitted by: \`${requester}\`
   #### Accountable Person/Team: \`${accountableEntity}\`
   `;
