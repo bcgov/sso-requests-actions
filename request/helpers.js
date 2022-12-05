@@ -5,7 +5,7 @@ const buildPullRequestBody = (integration) => {
     apiServiceAccount,
     authType,
     clientId,
-    realm: realmName,
+    realm,
     environments,
     accountableEntity,
     requester,
@@ -13,22 +13,25 @@ const buildPullRequestBody = (integration) => {
     devValidRedirectUris,
     testValidRedirectUris,
     prodValidRedirectUris,
+    projectName,
   } = integration;
 
-  let body = apiServiceAccount
-    ? ``
-    : `
-  #### Project Name: \`${_.startCase(clientId)}\``;
+  const defaultRealm = 'standard';
 
-  body = body.concat(`
-  #### Target Realm: \`${realmName}\`
-  #### Environments: \`${environments.join(', ')}\`
-  `);
-
-  if (authType !== 'service-account' && !apiServiceAccount) {
-    body = body.concat(
-      `#### Accountable person(s): \`${accountableEntity}\`
+  let body = `#### Project Name: \`${projectName}\`
+  #### Client Id: \`${clientId}\`
+  #### Target Realm: \`${defaultRealm}\`
   #### Submitted by: \`${requester}\`
+  #### Accountable Person/Team: \`${accountableEntity}\`
+  `;
+
+  if (!apiServiceAccount) {
+    body = body.concat(`#### Environments: \`${environments.join(', ')}\``);
+  }
+
+  if (['browser-login', 'both'].includes(authType) && !apiServiceAccount) {
+    body = body.concat(
+      `
   #### Identity providers: \`${idpNames.join(', ')}\`
   ${environments.map(
     (env) => `<details>
@@ -43,7 +46,6 @@ const buildPullRequestBody = (integration) => {
   )}`,
     );
   }
-
   return body;
 };
 
