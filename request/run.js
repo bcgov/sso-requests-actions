@@ -3,6 +3,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const createClients = require('./create-clients');
 const createClientsGold = require('./create-clients-gold');
+const { buildPullRequestBody } = require('./helpers');
 
 const ALLOWED_CHANGED_FILES = 3;
 const ALLOWED_ADDITIONS = 300;
@@ -63,6 +64,9 @@ module.exports = async function run({ github, context, args }) {
     devDisplayHeaderTitle,
     testDisplayHeaderTitle,
     prodDisplayHeaderTitle,
+    requester,
+    accountableEntity,
+    idpNames,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
@@ -188,6 +192,8 @@ module.exports = async function run({ github, context, args }) {
       }),
     );
 
+    const prBody = buildPullRequestBody(github, integration);
+
     // create a new pr for the target client
     // see https://docs.github.com/en/rest/reference/pulls#create-a-pull-request--code-samples
     // see https://octokit.github.io/rest.js/v18#pulls-create
@@ -197,20 +203,7 @@ module.exports = async function run({ github, context, args }) {
       base: repository.default_branch,
       head: prBranchName,
       title: `request: ${mode} client files for ${clientId}`,
-      body: `
-  #### Project Name: \`${_.startCase(clientId)}\`
-  #### Target Realm: \`${realmName}\`
-  #### Environments: \`${environments.join(', ')}\`
-  ${environments.map(
-    (env) => `<details><summary>Show Details for ${env}</summary>
-  \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
-    ? devValidRedirectUris || []
-    : env === 'test'
-    ? testValidRedirectUris || []
-    : prodValidRedirectUris || []
-  ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
-  </details>`,
-  )}`,
+      body: buildPullRequestBody(github, integration),
       maintainer_can_modify: false,
     });
 
