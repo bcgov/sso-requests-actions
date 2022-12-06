@@ -33,19 +33,26 @@ const buildPullRequestBody = (integration) => {
     body = body.concat(
       `
   #### Identity providers: \`${idpNames.join(', ')}\`
-  ${environments.map(
-    (env) => `<details>
-    <summary>Show Details for ${env}</summary>
-    \`\`\`<ul>✔️Valid Redirect Urls${(env === 'dev'
-      ? devValidRedirectUris || []
-      : env === 'test'
-      ? testValidRedirectUris || []
-      : prodValidRedirectUris || []
-    ).map((url) => `<li>${url}</li>`)}</ul>\`\`\`
-    </details>`,
-  )}`,
+  ${environments
+    .map(
+      (env) => `
+<details>
+  <summary>Show Details for ${env}</summary>
+  <ul>✔️ Valid Redirect Urls${(env === 'dev'
+    ? devValidRedirectUris || []
+    : env === 'test'
+    ? testValidRedirectUris || []
+    : prodValidRedirectUris || []
+  )
+    .map((url) => `<li>${url}</li>`)
+    .join('')}
+  </ul>
+</details>`,
+    )
+    .join('')}`,
     );
   }
+
   return body;
 };
 
