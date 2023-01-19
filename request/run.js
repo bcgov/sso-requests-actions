@@ -8,6 +8,29 @@ const { buildPullRequestBody } = require('./helpers');
 const ALLOWED_CHANGED_FILES = 3;
 const ALLOWED_ADDITIONS = 300;
 const ALLOWED_DELETIONS = 300;
+const PRESERVED_CLAIMS = [
+  'exp',
+  'iat',
+  'auth_time',
+  'jti',
+  'iss',
+  'aud',
+  'sub',
+  'typ',
+  'azp',
+  'nonce',
+  'session_state',
+  'sid',
+  'email_verified',
+  'name',
+  'preferred_username',
+  'display_name',
+  'given_name',
+  'family_name',
+  'email',
+  'scope',
+  'at_hash',
+];
 
 module.exports = async function run({ github, context, args }) {
   const { apiUrl, authSecret, tfModuleRef } = args;
@@ -67,6 +90,7 @@ module.exports = async function run({ github, context, args }) {
     requester,
     accountableEntity,
     idpNames,
+    additionalRoleAttribute,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };
@@ -87,6 +111,11 @@ module.exports = async function run({ github, context, args }) {
     console.log(integration);
 
     const clientData = { ...integration, realmName, tfModuleRef };
+
+    if (PRESERVED_CLAIMS.includes(additionalRoleAttribute)) {
+      throw Error(`${additionalRoleAttribute} is a preserved claim and cannot be overwritten`);
+    }
+
     const info = serviceType === 'gold' ? createClientsGold(clientData) : createClients(clientData);
 
     if (!info) throw Error('failed in client creation');
