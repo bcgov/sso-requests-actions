@@ -112,7 +112,7 @@ module.exports = async function run({ github, context, args }) {
 
     const clientData = { ...integration, realmName, tfModuleRef };
 
-    if (PRESERVED_CLAIMS.includes(additionalRoleAttribute)) {
+    if (PRESERVED_CLAIMS.includes(additionalRoleAttribute.trim())) {
       throw Error(`${additionalRoleAttribute} is a preserved claim and cannot be overwritten`);
     }
 
