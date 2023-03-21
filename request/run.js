@@ -91,6 +91,9 @@ module.exports = async function run({ github, context, args }) {
     accountableEntity,
     idpNames,
     additionalRoleAttribute,
+    devSamlLogoutPostBindingUri,
+    testSamlLogoutPostBindingUri,
+    prodSamlLogoutPostBindingUri,
   } = integration;
 
   const axiosConfig = { headers: { Authorization: authSecret } };

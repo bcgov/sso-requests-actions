@@ -101,6 +101,7 @@ module.exports = (props) => {
     const clientName = props[`${env}LoginTitle`] || '';
     const idps = props[`${env}Idps`] || [];
     const assertionLifespan = props[`${env}AssertionLifespan`] || '';
+    const logoutPostBindingUri = props[`${env}SamlLogoutPostBindingUri`] || '';
 
     return generateSAMLGoldTF({
       clientId,
@@ -112,6 +113,7 @@ module.exports = (props) => {
       browserFlowOverride,
       tfModuleRef,
       additionalRoleAttribute,
+      logoutPostBindingUri,
     });
   };
 
