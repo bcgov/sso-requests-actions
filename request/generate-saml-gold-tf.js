@@ -16,6 +16,7 @@ module.exports = ({
   browserFlowOverride,
   tfModuleRef,
   additionalRoleAttribute,
+  logoutPostBindingUri,
 }) => {
   const tfg = new TerraformGenerator();
 
@@ -30,6 +31,7 @@ module.exports = ({
     idps: idps.concat('common'),
     description: 'CSS App Created',
     additional_role_attribute: additionalRoleAttribute,
+    logout_post_binding_url: logoutPostBindingUri,
   };
 
   // The GH action converts the null value into a string
