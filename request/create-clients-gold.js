@@ -33,6 +33,8 @@ module.exports = (props) => {
     tfModuleRef,
     webOrigins,
     additionalRoleAttribute,
+    id,
+    projectName,
   } = props;
 
   const headerWithoutTitleTheme = 'bcgov-idp-stopper-no-header-title';
@@ -114,6 +116,8 @@ module.exports = (props) => {
       tfModuleRef,
       additionalRoleAttribute,
       logoutPostBindingUri,
+      id,
+      projectName,
     });
   };
 
