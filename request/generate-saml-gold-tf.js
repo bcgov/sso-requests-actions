@@ -17,6 +17,8 @@ module.exports = ({
   tfModuleRef,
   additionalRoleAttribute,
   logoutPostBindingUri,
+  id,
+  projectName,
 }) => {
   const tfg = new TerraformGenerator();
 
@@ -44,7 +46,7 @@ module.exports = ({
     ).id;
   }
 
-  tfg.module(clientId, data);
+  tfg.module(`${_.kebabCase(projectName)}-${id}`, data);
 
   const result = tfg.generate();
 
