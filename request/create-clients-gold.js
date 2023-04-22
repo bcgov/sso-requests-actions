@@ -6,6 +6,7 @@ const _ = require('lodash');
 const generateOIDCGoldTF = require('./generate-oidc-gold-tf');
 const generateSAMLGoldTF = require('./generate-saml-gold-tf');
 const generateServiceAccountGoldTF = require('./generate-service-account-gold-tf');
+const { generateClientId } = require('./helpers');
 
 const allEnvironments = ['dev', 'test', 'prod'];
 
@@ -42,7 +43,7 @@ module.exports = (props) => {
   const getEnvPath = (env, subdir = 'standard-clients') => {
     const outputDir = `terraform-v2/keycloak-${env}/${subdir}`;
     shell.mkdir('-p', outputDir);
-    const tfFile = `${clientId}.tf`;
+    const tfFile = `${generateClientId(id, projectName)}.tf`;
     const target = path.join(outputDir, tfFile);
 
     return {

@@ -3,7 +3,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const createClients = require('./create-clients');
 const createClientsGold = require('./create-clients-gold');
-const { buildPullRequestBody } = require('./helpers');
+const { buildPullRequestBody, generateClientId } = require('./helpers');
 
 const ALLOWED_CHANGED_FILES = 3;
 const ALLOWED_ADDITIONS = 300;
@@ -134,7 +134,7 @@ module.exports = async function run({ github, context, args }) {
       console.error('no main branch');
     }
 
-    const prBranchName = `request/${clientId}-${new Date().getTime()}`;
+    const prBranchName = `request/${generateClientId(id, projectName)}-${new Date().getTime()}`;
 
     await github.git.createRef({
       owner,
@@ -176,7 +176,7 @@ module.exports = async function run({ github, context, args }) {
           sha: await getSHA({ ref: prBranchName, path }),
           branch: prBranchName,
           path,
-          message: `chore: remove a client file for ${clientId}`,
+          message: `chore: remove a client file for ${generateClientId(id, projectName)}`,
         })
         .then(
           (res) => res.data,
@@ -196,7 +196,7 @@ module.exports = async function run({ github, context, args }) {
           sha: await getSHA({ ref: prBranchName, path }),
           branch: prBranchName,
           path,
-          message: `feat: add a client file for ${clientId}`,
+          message: `feat: add a client file for ${generateClientId(id, projectName)}`,
           content: fs.readFileSync(path, { encoding: 'base64' }),
         });
       }
@@ -232,7 +232,7 @@ module.exports = async function run({ github, context, args }) {
       repo,
       base: repository.default_branch,
       head: prBranchName,
-      title: `request: ${mode} client files for ${clientId}`,
+      title: `request: ${mode} client files for ${generateClientId(id, projectName)}`,
       body: buildPullRequestBody(integration),
       maintainer_can_modify: false,
     });

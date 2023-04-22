@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { TerraformGenerator } = require('terraform-generator');
+const { generateClientId } = require('./helpers');
 
 const mock = new TerraformGenerator();
 
@@ -46,7 +47,7 @@ module.exports = ({
     ).id;
   }
 
-  tfg.module(`${_.kebabCase(projectName)}-${id}`, data);
+  tfg.module(generateClientId(id, projectName), data);
 
   const result = tfg.generate();
 
