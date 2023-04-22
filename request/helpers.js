@@ -56,6 +56,11 @@ const buildPullRequestBody = (integration) => {
   return body;
 };
 
+const generateClientId = (id, projectName) => {
+  return `${_.kebabCase(projectName)}-${id}`
+}
+
 module.exports = {
   buildPullRequestBody,
+  generateClientId
 };
