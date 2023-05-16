@@ -43,7 +43,7 @@ module.exports = (props) => {
   const getEnvPath = (env, subdir = 'standard-clients') => {
     const outputDir = `terraform-v2/keycloak-${env}/${subdir}`;
     shell.mkdir('-p', outputDir);
-    const tfFile = `${generateClientId(id, projectName)}.tf`;
+    const tfFile = `${protocol === 'oidc' ? clientId : generateClientId(id, projectName)}.tf`;
     const target = path.join(outputDir, tfFile);
 
     return {
