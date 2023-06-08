@@ -225,8 +225,9 @@ runs:
       id: cache-tf-modules
       uses: actions/cache@v3
       with:
-        path: ${{ inputs.context }}/.terraform
+        path: .terraform
         key: ${{ runner.os }}-terraform-${{ steps.tf-modules.outputs.latest-sha }}
+      working-directory: ${{ inputs.context }}
 
     - name: Terraform Init
       id: init
