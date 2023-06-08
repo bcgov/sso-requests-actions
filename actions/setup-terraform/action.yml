@@ -219,6 +219,7 @@ runs:
     - id: tf-modules
       name: Get Terraform Modules Latest SHA
       run: echo "latest-sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      shell: bash
 
     - name: Cache Terraform Modules
       id: cache-tf-modules
