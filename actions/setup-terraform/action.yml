@@ -1,148 +1,152 @@
-name: "Setup Terraform"
-description: "Setup SSO Terraform workspace"
+name: 'Setup Terraform'
+description: 'Setup SSO Terraform workspace'
 
 inputs:
   context:
-    description: "Terraform workspace directory"
+    description: 'Terraform workspace directory'
     required: false
     default: .
   tf-version:
-    description: "Terraform version"
+    description: 'Terraform version'
     required: true
   tf-s3-bucket:
-    description: "Terraform S3 Remote backend bucket name"
+    description: 'Terraform S3 Remote backend bucket name'
     required: true
   tf-s3-bucket-key:
-    description: "Terraform S3 Remote backend bucket key (path)"
+    description: 'Terraform S3 Remote backend bucket key (path)'
     required: true
   tf-s3-dynamodb-table:
-    description: "Terraform S3 Remote backend DynamoDB table"
+    description: 'Terraform S3 Remote backend DynamoDB table'
     required: true
   tf-s3-access-key:
-    description: "AWS access key to access Terraform S3 Bucket"
+    description: 'AWS access key to access Terraform S3 Bucket'
     required: true
   tf-s3-secret-key:
-    description: "AWS secret key to access Terraform S3 Bucket"
+    description: 'AWS secret key to access Terraform S3 Bucket'
     required: true
   tf-s3-role-arn:
-    description: "Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket"
+    description: 'Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket'
     required: true
   kc-provider-version:
-    description: "Keycloak Terraform provider version"
+    description: 'Keycloak Terraform provider version'
     required: true
   kc-dev-url:
-    description: "Keycloak url in customer dev environment"
+    description: 'Keycloak url in customer dev environment'
     required: true
   kc-test-url:
-    description: "Keycloak url in customer test environment"
+    description: 'Keycloak url in customer test environment'
     required: true
   kc-prod-url:
-    description: "Keycloak url in customer prod environment"
+    description: 'Keycloak url in customer prod environment'
     required: true
   kc-dev-secret:
-    description: "Keycloak client secret in customer dev environment"
+    description: 'Keycloak client secret in customer dev environment'
     required: true
   kc-test-secret:
-    description: "Keycloak client secret in customer test environment"
+    description: 'Keycloak client secret in customer test environment'
     required: true
   kc-prod-secret:
-    description: "Keycloak client secret in customer prod environment"
+    description: 'Keycloak client secret in customer prod environment'
     required: true
   test-siteminder-signing-certificate:
-    description: "Siteminder signing certificate in test environment"
+    description: 'Siteminder signing certificate in test environment'
     required: false
-    default: ""
+    default: ''
   prod-siteminder-signing-certificate:
-    description: "Siteminder signing certificate in prod environment"
+    description: 'Siteminder signing certificate in prod environment'
     required: false
-    default: ""
+    default: ''
 
   dev-azureidir-tenant-id:
-    description: "Azure IDIR Tenant ID in dev environment"
+    description: 'Azure IDIR Tenant ID in dev environment'
     required: false
-    default: ""
+    default: ''
   dev-azureidir-client-id:
-    description: "Azure IDIR Client ID in dev environment"
+    description: 'Azure IDIR Client ID in dev environment'
     required: false
-    default: ""
+    default: ''
   dev-azureidir-client-secret:
-    description: "Azure IDIR Client Secret in dev environment"
+    description: 'Azure IDIR Client Secret in dev environment'
     required: false
-    default: ""
+    default: ''
   dev-github-client-id:
-    description: "GitHub Client ID in dev environment"
+    description: 'GitHub Client ID in dev environment'
     required: false
-    default: ""
+    default: ''
   dev-github-client-secret:
-    description: "GitHub Client Secret in dev environment"
+    description: 'GitHub Client Secret in dev environment'
     required: false
-    default: ""
+    default: ''
   test-azureidir-tenant-id:
-    description: "Azure IDIR Tenant ID in test environment"
+    description: 'Azure IDIR Tenant ID in test environment'
     required: false
-    default: ""
+    default: ''
   test-azureidir-client-id:
-    description: "Azure IDIR Client ID in test environment"
+    description: 'Azure IDIR Client ID in test environment'
     required: false
-    default: ""
+    default: ''
   test-azureidir-client-secret:
-    description: "Azure IDIR Client Secret in test environment"
+    description: 'Azure IDIR Client Secret in test environment'
     required: false
-    default: ""
+    default: ''
   test-github-client-id:
-    description: "GitHub Client ID in test environment"
+    description: 'GitHub Client ID in test environment'
     required: false
-    default: ""
+    default: ''
   test-github-client-secret:
-    description: "GitHub Client Secret in test environment"
+    description: 'GitHub Client Secret in test environment'
     required: false
-    default: ""
+    default: ''
   prod-azureidir-tenant-id:
-    description: "Azure IDIR Tenant ID in prod environment"
+    description: 'Azure IDIR Tenant ID in prod environment'
     required: false
-    default: ""
+    default: ''
   prod-azureidir-client-id:
-    description: "Azure IDIR Client ID in prod environment"
+    description: 'Azure IDIR Client ID in prod environment'
     required: false
-    default: ""
+    default: ''
   prod-azureidir-client-secret:
-    description: "Azure IDIR Client Secret in prod environment"
+    description: 'Azure IDIR Client Secret in prod environment'
     required: false
-    default: ""
+    default: ''
   prod-github-client-id:
-    description: "GitHub Client ID in prod environment"
+    description: 'GitHub Client ID in prod environment'
     required: false
-    default: ""
+    default: ''
   prod-github-client-secret:
-    description: "GitHub Client Secret in prod environment"
+    description: 'GitHub Client Secret in prod environment'
     required: false
-    default: ""
+    default: ''
 
   plan:
-    description: "Whether to run Terraform plan"
+    description: 'Whether to run Terraform plan'
     required: false
-    default: "false"
+    default: 'false'
   apply:
-    description: "Whether to run Terraform apply"
+    description: 'Whether to run Terraform apply'
     required: false
-    default: "false"
+    default: 'false'
   state-rm:
-    description: "Resource address to remove the state"
+    description: 'Resource address to remove the state'
     required: false
-    default: ""
+    default: ''
+
+  tf-modules-ref:
+    description: 'Terraform Modules Source Branch'
+    required: true
 
 outputs:
   init:
-    description: "Terraform init outcome"
+    description: 'Terraform init outcome'
     value: ${{ steps.init.outcome }}
   fmt:
-    description: "Terraform fmt outcome"
+    description: 'Terraform fmt outcome'
     value: ${{ steps.fmt.outcome }}
   plan:
-    description: "Terraform plan outcome"
+    description: 'Terraform plan outcome'
     value: ${{ steps.plan.outcome }}
   apply:
-    description: "Terraform apply outcome"
+    description: 'Terraform apply outcome'
     value: ${{ steps.apply.outcome }}
 
 runs:
@@ -209,9 +213,26 @@ runs:
       shell: bash
       working-directory: ${{ inputs.context }}
 
+    - name: Checkout Terraform Modules
+      uses: actions/checkout@v3
+      with:
+        repository: bcgov/sso-terraform-modules
+        ref: ${{ inputs.tf-modules-ref }}
+
+    - id: tf-modules
+      name: Get Terraform Modules Latest SHA
+      run: echo "latest-sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Cache Terraform Modules
+      id: cache-tf-modules
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.context }}/.terraform
+        key: ${{ runner.os }}-terraform-${{ steps.tf-modules.outputs.latest-sha }}
+
     - name: Terraform Init
       id: init
-      run: terraform init -upgrade
+      run: terraform init
       shell: bash
       working-directory: ${{ inputs.context }}
 
