@@ -2,6 +2,9 @@ name: 'Setup Terraform'
 description: 'Setup SSO Terraform workspace'
 
 inputs:
+  tf-modules-ref:
+    description: 'Terraform Modules Source Branch'
+    required: true
   context:
     description: 'Terraform workspace directory'
     required: false
@@ -56,7 +59,6 @@ inputs:
     description: 'Siteminder signing certificate in prod environment'
     required: false
     default: ''
-
   dev-azureidir-tenant-id:
     description: 'Azure IDIR Tenant ID in dev environment'
     required: false
@@ -117,7 +119,6 @@ inputs:
     description: 'GitHub Client Secret in prod environment'
     required: false
     default: ''
-
   plan:
     description: 'Whether to run Terraform plan'
     required: false
@@ -130,10 +131,6 @@ inputs:
     description: 'Resource address to remove the state'
     required: false
     default: ''
-
-  tf-modules-ref:
-    description: 'Terraform Modules Source Branch'
-    required: true
 
 outputs:
   init:
