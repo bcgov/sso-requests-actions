@@ -2,9 +2,6 @@ name: 'Setup Terraform'
 description: 'Setup SSO Terraform workspace'
 
 inputs:
-  tf-modules-ref:
-    description: 'Terraform Modules Source Branch'
-    required: true
   context:
     description: 'Terraform workspace directory'
     required: false
@@ -131,6 +128,10 @@ inputs:
     description: 'Resource address to remove the state'
     required: false
     default: ''
+  tf-modules-cache-key:
+    description: 'Terraform Modules Cache Key'
+    required: false
+    default: 'sso'
 
 outputs:
   init:
@@ -210,24 +211,12 @@ runs:
       shell: bash
       working-directory: ${{ inputs.context }}
 
-    - name: Checkout Terraform Modules
-      uses: actions/checkout@v3
-      with:
-        repository: bcgov/sso-terraform-modules
-        ref: ${{ inputs.tf-modules-ref }}
-
-    - id: tf-modules
-      name: Get Terraform Modules Latest SHA
-      run: echo "latest-sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      shell: bash
-
     - name: Cache Terraform Modules
       id: cache-tf-modules
       uses: actions/cache@v3
       with:
-        path: .terraform
-        key: ${{ runner.os }}-terraform-${{ steps.tf-modules.outputs.latest-sha }}
-      working-directory: ${{ inputs.context }}
+        path: ${{ inputs.context }}/.terraform
+        key: ${{ runner.os }}-terraform-${{ inputs.tf-modules-cache-key }}
 
     - name: Terraform Init
       id: init
