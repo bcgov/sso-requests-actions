@@ -9,16 +9,194 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
-<a name="v0.36.0"></a>
-## [v0.36.0] - 2022-08-25
 
-- Set weborigins for service accounts 
+<a name="v0.62.0"></a>
+## [v0.62.0] - 2023-10-13
+FEATURES:
+- Add sign saml assertions ([#64](https://github.com/bcgov/sso-requests-actions/issues/64))
+
+
+<a name="v0.61.0"></a>
+## [v0.61.0] - 2023-09-22
+
+
+
+<a name="v0.60.0"></a>
+## [v0.60.0] - 2023-06-08
+FEATURES:
+- Just use cache key
+- Running debug commands
+- Added working directory for cache step
+- Added shell property to custom step
+- Removed unnecessary spaces
+- Caching the terraform modules to reduce init times
+
+
+<a name="v0.59.0"></a>
+## [v0.59.0] - 2023-05-16
+
+- Do not generate duplicate tf file for oidc
+
+
+<a name="v0.58.0"></a>
+## [v0.58.0] - 2023-04-21
+
+
+
+<a name="list"></a>
+## [list] - 2023-04-21
+
+- Custom function for generating client id
+- Generate saml tf module name with id and project name
+
+
+<a name="v0.57.0"></a>
+## [v0.57.0] - 2023-03-21
+
+- Add saml logout service post binding url
+
+
+<a name="v0.56.0"></a>
+## [v0.56.0] - 2023-01-20
+
+- Trim additional role attribute
+- Added a validation to block overwriting preserved claims
+
+
+<a name="v0.55.0"></a>
+## [v0.55.0] - 2022-12-06
+
+- Remove unnecessary characters in html
+
+
+<a name="v0.54.0"></a>
+## [v0.54.0] - 2022-12-05
+
+- Fix minor impl
+- Refactored code
+- Refactored validations
+- Add redirect uri for browser logins
+- Created separate file to build pr body
+- Added additional fields to PR
+
+
+<a name="v0.53.0"></a>
+## [v0.53.0] - 2022-12-02
+
+- Pass login theme that hides title in the header
+- Add missing license
+- Resolve repo-mountie issues
+
+
+<a name="v0.52.0"></a>
+## [v0.52.0] - 2022-10-18
+FEATURES:
+- Add wellknown action
+
+
+<a name="v0.51.0"></a>
+## [v0.51.0] - 2022-10-14
+FEATURES:
+- Add an action to create master viewer role
+
+
+<a name="v0.50.0"></a>
+## [v0.50.0] - 2022-10-11
+
+- Rename kc version arg
+
+
+<a name="v0.49.0"></a>
+## [v0.49.0] - 2022-10-11
+
+- Update kc-version description
+- Pass kc version into the tf action
+
+
+<a name="v0.48.0"></a>
+## [v0.48.0] - 2022-09-23
+FEATURES:
+- Add dynamo table in terraform action
+
+
+<a name="v0.47.0"></a>
+## [v0.47.0] - 2022-09-23
+FEATURES:
+- Support additional role attribute to deliver roles
+
+
+<a name="v0.46.0"></a>
+## [v0.46.0] - 2022-09-08
+
+- Fix typos
+
+
+<a name="v0.45.0"></a>
+## [v0.45.0] - 2022-09-08
+
+- Separate github oauth client credentials
+
+
+<a name="v0.44.0"></a>
+## [v0.44.0] - 2022-09-07
+FEATURES:
+- Add github oauth credentials in envs
+
+
+<a name="v0.43.0"></a>
+## [v0.43.0] - 2022-09-02
+
+- Add a task to remove unused client scopes
+
+
+<a name="v0.42.0"></a>
+## [v0.42.0] - 2022-08-25
+
+- Add web origins for service accounts
+- Add web origins for service accounts
+
+
+<a name="v0.41.0"></a>
+## [v0.41.0] - 2022-08-16
+
+- Remove notused lines
+
+
+<a name="v0.40.0"></a>
+## [v0.40.0] - 2022-08-16
+FEATURES:
+- Add saml client workflow
+
+
+<a name="v0.39.0"></a>
+## [v0.39.0] - 2022-08-05
+
+- Ensure not to create client files when archiving
+
+
+<a name="v0.38.0"></a>
+## [v0.38.0] - 2022-07-20
+
+- Fix a typo
+
+
+<a name="v0.37.0"></a>
+## [v0.37.0] - 2022-07-20
+
+- Fix a bug passing tf module ref
+
+
+<a name="v0.36.0"></a>
+## [v0.36.0] - 2022-07-20
+
+- Increase the allowed file changes
 
 
 <a name="v0.35.0"></a>
 ## [v0.35.0] - 2022-07-08
 
-- Set valid redirect uris if standard flow enabled
+- Udpate changelog
+- Set valid redirect uris iff standard flow enabled
 
 
 <a name="v0.34.0"></a>
@@ -231,7 +409,35 @@ FEATURES:
 - Add action for request workflow
 
 
-[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.35.0...HEAD
+[Unreleased]: https://github.com/bcgov/sso-requests-actions/compare/v0.62.0...HEAD
+[v0.62.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.61.0...v0.62.0
+[v0.61.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.60.0...v0.61.0
+[v0.60.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.59.0...v0.60.0
+[v0.59.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.58.0...v0.59.0
+[v0.58.0]: https://github.com/bcgov/sso-requests-actions/compare/list...v0.58.0
+[list]: https://github.com/bcgov/sso-requests-actions/compare/v0.57.0...list
+[v0.57.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.56.0...v0.57.0
+[v0.56.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.55.0...v0.56.0
+[v0.55.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.54.0...v0.55.0
+[v0.54.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.53.0...v0.54.0
+[v0.53.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.52.0...v0.53.0
+[v0.52.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.51.0...v0.52.0
+[v0.51.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.50.0...v0.51.0
+[v0.50.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.49.0...v0.50.0
+[v0.49.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.48.0...v0.49.0
+[v0.48.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.47.0...v0.48.0
+[v0.47.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.46.0...v0.47.0
+[v0.46.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.45.0...v0.46.0
+[v0.45.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.44.0...v0.45.0
+[v0.44.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.43.0...v0.44.0
+[v0.43.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.42.0...v0.43.0
+[v0.42.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.41.0...v0.42.0
+[v0.41.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.40.0...v0.41.0
+[v0.40.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.39.0...v0.40.0
+[v0.39.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.38.0...v0.39.0
+[v0.38.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.37.0...v0.38.0
+[v0.37.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.36.0...v0.37.0
+[v0.36.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.35.0...v0.36.0
 [v0.35.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.34.0...v0.35.0
 [v0.34.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.33.0...v0.34.0
 [v0.33.0]: https://github.com/bcgov/sso-requests-actions/compare/v0.32.0...v0.33.0
