@@ -20,6 +20,7 @@ module.exports = ({
   logoutPostBindingUri,
   id,
   projectName,
+  signAssertions,
 }) => {
   const tfg = new TerraformGenerator();
 
@@ -35,6 +36,7 @@ module.exports = ({
     description: 'CSS App Created',
     additional_role_attribute: additionalRoleAttribute,
     logout_post_binding_url: logoutPostBindingUri,
+    sign_assertions: signAssertions,
   };
 
   // The GH action converts the null value into a string

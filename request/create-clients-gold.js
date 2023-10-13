@@ -105,6 +105,7 @@ module.exports = (props) => {
     const idps = props[`${env}Idps`] || [];
     const assertionLifespan = props[`${env}AssertionLifespan`] || '';
     const logoutPostBindingUri = props[`${env}SamlLogoutPostBindingUri`] || '';
+    const signAssertions = props[`${env}SamlSignAssertions`] || '';
 
     return generateSAMLGoldTF({
       clientId,
@@ -119,6 +120,7 @@ module.exports = (props) => {
       logoutPostBindingUri,
       id,
       projectName,
+      signAssertions,
     });
   };
 
