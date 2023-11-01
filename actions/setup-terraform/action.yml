@@ -76,12 +76,12 @@ inputs:
     description: 'GitHub Client Secret in dev environment'
     required: false
     default: ''
-  dev-verifiablecredential-client-id:
-    description: 'Verifiable Credential Client ID in dev environment'
+  dev-digitalcredential-client-id:
+    description: 'Digital Credential Client ID in dev environment'
     required: false
     default: ''
-  dev-verifiablecredential-client-secret:
-    description: 'Verifiable Credential Client Secret in dev environment'
+  dev-digitalcredential-client-secret:
+    description: 'Digital Credential Client Secret in dev environment'
     required: false
     default: ''
   test-azureidir-tenant-id:
@@ -104,12 +104,12 @@ inputs:
     description: 'GitHub Client Secret in test environment'
     required: false
     default: ''
-  test-verifiablecredential-client-id:
-    description: 'Verifiable Credential Client ID in test environment'
+  test-digitalcredential-client-id:
+    description: 'Digital Credential Client ID in test environment'
     required: false
     default: ''
-  test-verifiablecredential-client-secret:
-    description: 'Verifiable Credential Client Secret in test environment'
+  test-digitalcredential-client-secret:
+    description: 'Digital Credential Client Secret in test environment'
     required: false
     default: ''
   prod-azureidir-tenant-id:
@@ -132,12 +132,12 @@ inputs:
     description: 'GitHub Client Secret in prod environment'
     required: false
     default: ''
-  prod-verifiablecredential-client-id:
-    description: 'Verifiable Credential Client ID in prod environment'
+  prod-digitalcredential-client-id:
+    description: 'Digital Credential Client ID in prod environment'
     required: false
     default: ''
-  prod-verifiablecredential-client-secret:
-    description: 'Verifiable Credential Client Secret in prod environment'
+  prod-digitalcredential-client-secret:
+    description: 'Digital Credential Client Secret in prod environment'
     required: false
     default: ''
   plan:
@@ -221,22 +221,22 @@ runs:
         dev_azureidir_client_secret="${{ inputs.dev-azureidir-client-secret }}"
         dev_github_client_id="${{ inputs.dev-github-client-id }}"
         dev_github_client_secret="${{ inputs.dev-github-client-secret }}"
-        dev_verifiablecredential_client_id="${{ inputs.dev-verifiablecredential-client-id }}"
-        dev_verifiablecredential_client_secret="${{ inputs.dev-verifiablecredential-client-secret }}"
+        dev_digitalcredential_client_id="${{ inputs.dev-digitalcredential-client-id }}"
+        dev_digitalcredential_client_secret="${{ inputs.dev-digitalcredential-client-secret }}"
         test_azureidir_tenant_id="${{ inputs.test-azureidir-tenant-id }}"
         test_azureidir_client_id="${{ inputs.test-azureidir-client-id }}"
         test_azureidir_client_secret="${{ inputs.test-azureidir-client-secret }}"
         test_github_client_id="${{ inputs.test-github-client-id }}"
         test_github_client_secret="${{ inputs.test-github-client-secret }}"
-        test_verifiablecredential_client_id="${{ inputs.test-verifiablecredential-client-id }}"
-        test_verifiablecredential_client_secret="${{ inputs.test-verifiablecredential-client-secret }}"
+        test_digitalcredential_client_id="${{ inputs.test-digitalcredential-client-id }}"
+        test_digitalcredential_client_secret="${{ inputs.test-digitalcredential-client-secret }}"
         prod_azureidir_tenant_id="${{ inputs.prod-azureidir-tenant-id }}"
         prod_azureidir_client_id="${{ inputs.prod-azureidir-client-id }}"
         prod_azureidir_client_secret="${{ inputs.prod-azureidir-client-secret }}"
         prod_github_client_id="${{ inputs.prod-github-client-id }}"
         prod_github_client_secret="${{ inputs.prod-github-client-secret }}"
-        prod_verifiablecredential_client_id="${{ inputs.prod-verifiablecredential-client-id }}"
-        prod_verifiablecredential_client_secret="${{ inputs.prod-verifiablecredential-client-secret }}"
+        prod_digitalcredential_client_id="${{ inputs.prod-digitalcredential-client-id }}"
+        prod_digitalcredential_client_secret="${{ inputs.prod-digitalcredential-client-secret }}"
         EOF
       shell: bash
       working-directory: ${{ inputs.context }}
