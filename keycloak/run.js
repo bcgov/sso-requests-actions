@@ -14,9 +14,10 @@ module.exports = async function run({ context, args }) {
     });
 
     await kcAdminClient.auth({
-      grantType: 'client_credentials',
-      clientId: args[`${env}ClientId`],
-      clientSecret: args[`${env}ClientSecret`],
+      grantType: 'password',
+      clientId: 'admin-cli',
+      username: args[`${env}Username`],
+      password: args[`${env}Password`],
     });
 
     return kcAdminClient;
