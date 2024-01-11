@@ -9,12 +9,12 @@ async function main() {
   const devKeycloakUrl = core.getInput('dev-keycloak-url', { required: true });
   const testKeycloakUrl = core.getInput('test-keycloak-url', { required: true });
   const prodKeycloakUrl = core.getInput('prod-keycloak-url', { required: true });
-  const devClientId = core.getInput('dev-client-id', { required: true });
-  const testClientId = core.getInput('test-client-id', { required: true });
-  const prodClientId = core.getInput('prod-client-id', { required: true });
-  const devClientSecret = core.getInput('dev-client-secret', { required: true });
-  const testClientSecret = core.getInput('test-client-secret', { required: true });
-  const prodClientSecret = core.getInput('prod-client-secret', { required: true });
+  const devUsername = core.getInput('dev-username', { required: true });
+  const testUsername = core.getInput('test-username', { required: true });
+  const prodUsername = core.getInput('prod-username', { required: true });
+  const devPassword = core.getInput('dev-password', { required: true });
+  const testPassword = core.getInput('test-password', { required: true });
+  const prodPassword = core.getInput('prod-password', { required: true });
   const tasks = core.getInput('tasks', { required: true });
 
   const result = await run({
@@ -23,12 +23,12 @@ async function main() {
       devKeycloakUrl,
       testKeycloakUrl,
       prodKeycloakUrl,
-      devClientId,
-      testClientId,
-      prodClientId,
-      devClientSecret,
-      testClientSecret,
-      prodClientSecret,
+      devUsername,
+      testUsername,
+      prodUsername,
+      devPassword,
+      testPassword,
+      prodPassword,
       tasks,
     },
   });
