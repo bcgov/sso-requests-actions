@@ -39,14 +39,23 @@ inputs:
   kc-prod-url:
     description: 'Keycloak url in customer prod environment'
     required: true
-  kc-dev-secret:
-    description: 'Keycloak client secret in customer dev environment'
+  kc-dev-username:
+    description: 'Keycloak admin username in customer dev environment'
     required: true
-  kc-test-secret:
-    description: 'Keycloak client secret in customer test environment'
+  kc-test-username:
+    description: 'Keycloak admin username in customer test environment'
     required: true
-  kc-prod-secret:
-    description: 'Keycloak client secret in customer prod environment'
+  kc-prod-username:
+    description: 'Keycloak admin username in customer prod environment'
+    required: true
+  kc-dev-password:
+    description: 'Keycloak admin password in customer dev environment'
+    required: true
+  kc-test-password:
+    description: 'Keycloak admin password in customer test environment'
+    required: true
+  kc-prod-password:
+    description: 'Keycloak admin password in customer prod environment'
     required: true
   test-siteminder-signing-certificate:
     description: 'Siteminder signing certificate in test environment'
