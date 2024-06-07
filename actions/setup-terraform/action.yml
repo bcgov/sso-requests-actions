@@ -18,12 +18,6 @@ inputs:
   tf-s3-dynamodb-table:
     description: 'Terraform S3 Remote backend DynamoDB table'
     required: true
-  tf-s3-access-key:
-    description: 'AWS access key to access Terraform S3 Bucket'
-    required: true
-  tf-s3-secret-key:
-    description: 'AWS secret key to access Terraform S3 Bucket'
-    required: true
   tf-s3-role-arn:
     description: 'Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket'
     required: true
@@ -165,6 +159,10 @@ inputs:
     description: 'Terraform Modules Cache Key'
     required: false
     default: 'sso'
+  aws-oidc-role-arn:
+    description: 'Role ARN required to authenticate to AWS environment'
+    required: true
+    default: ''
 
 outputs:
   init:
@@ -194,6 +192,12 @@ runs:
       shell: bash
       working-directory: ${{ inputs.context }}
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ inputs.aws-oidc-role-arn }}
+        aws-region: ca-central-1
+
     - name: Terraform Variables
       run: |
         cat >"config.tf" <<EOF
@@ -203,8 +207,6 @@ runs:
             key            = "${{ inputs.tf-s3-bucket-key }}"
             region         = "ca-central-1"
             dynamodb_table = "${{ inputs.tf-s3-dynamodb-table }}"
-            access_key     = "${{ inputs.tf-s3-access-key }}"
-            secret_key     = "${{ inputs.tf-s3-secret-key }}"
             role_arn       = "${{ inputs.tf-s3-role-arn }}"
           }
           required_providers {
