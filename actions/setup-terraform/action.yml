@@ -18,9 +18,6 @@ inputs:
   tf-s3-dynamodb-table:
     description: 'Terraform S3 Remote backend DynamoDB table'
     required: true
-  tf-s3-role-arn:
-    description: 'Amazon Resource Name (ARN) of the IAM Role to access Terraform S3 Bucket'
-    required: true
   kc-provider-version:
     description: 'Keycloak Terraform provider version'
     required: true
@@ -207,7 +204,6 @@ runs:
             key            = "${{ inputs.tf-s3-bucket-key }}"
             region         = "ca-central-1"
             dynamodb_table = "${{ inputs.tf-s3-dynamodb-table }}"
-            role_arn       = "${{ inputs.tf-s3-role-arn }}"
           }
           required_providers {
             keycloak = {
