@@ -267,7 +267,7 @@ runs:
     - name: Terraform Plan
       if: inputs.plan == 'true'
       id: plan
-      run: terraform plan -no-color
+      run: terraform plan -no-color -out=test-plan
       shell: bash
       working-directory: ${{ inputs.context }}
 
