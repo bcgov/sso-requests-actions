@@ -25,8 +25,4 @@ GitHub Action to parse the planned Terraform changes and update the status of th
 
 ## Creating a new release
 
-Changes to the actions need to be published in a release before they can be used by other repos.  To do this commit the changes locally and run 
-
-`make release`
-
-At the root of project.  This will create a new tag in the sso-request-actions repo that other projects can tag.
+Changes to the actions need to be published in a release before they can be used by other repos.  To do this, merge the changes into main and run `make release` from loca. At the root of project.  This will create a new tag in the sso-request-actions repo that other projects can tag.
