@@ -100,6 +100,14 @@ inputs:
   dev-microsoft-client-secret:
     description: 'Microsoft Client Secret in dev environment'
     required: false
+    default: ''
+  dev-apple-client-id:
+    description: 'Apple Client ID in dev environment'
+    required: false
+    default: ''
+  dev-apple-client-secret:
+    description: 'Apple Client Secret in dev environment'
+    required: false
     default: ''   
   dev-digitalcredential-client-id:
     description: 'Digital Credential Client ID in dev environment'
@@ -145,6 +153,14 @@ inputs:
     description: 'Microsoft Client Secret in test environment'
     required: false
     default: ''
+  test-apple-client-id:
+    description: 'Apple Client ID in test environment'
+    required: false
+    default: ''
+  test-apple-client-secret:
+    description: 'Apple Client Secret in test environment'
+    required: false
+    default: '' 
   test-digitalcredential-client-id:
     description: 'Digital Credential Client ID in test environment'
     required: false
@@ -189,6 +205,14 @@ inputs:
     description: 'Microsoft Client Secret in prod environment'
     required: false
     default: ''
+  prod-apple-client-id:
+    description: 'Apple Client ID in prod environment'
+    required: false
+    default: ''
+  prod-apple-client-secret:
+    description: 'Apple Client Secret in prod environment'
+    required: false
+    default: '' 
   prod-digitalcredential-client-id:
     description: 'Digital Credential Client ID in prod environment'
     required: false
