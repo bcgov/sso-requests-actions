@@ -330,7 +330,15 @@ runs:
         test_microsoft_client_id="${{ inputs.test-microsoft-client-id }}"
         test_microsoft_client_secret="${{ inputs.test-microsoft-client-secret }}"
         prod_microsoft_client_id="${{ inputs.prod-microsoft-client-id }}"
-        prod_microsoft_client_secret="${{ inputs.prod-microsoft-client-secret }}"        
+        prod_microsoft_client_secret="${{ inputs.prod-microsoft-client-secret }}"
+
+        dev_apple_client_id="${{ inputs.dev-apple-client-id }}"
+        dev_apple_client_secret="${{ inputs.dev-apple-client-secret }}"
+        test_apple_client_id="${{ inputs.test-apple-client-id }}"
+        test_apple_client_secret="${{ inputs.test-apple-client-secret }}"
+        prod_apple_client_id="${{ inputs.prod-apple-client-id }}"
+        prod_apple_client_secret="${{ inputs.prod-apple-client-secret }}"
+
         prod_digitalcredential_client_id="${{ inputs.prod-digitalcredential-client-id }}"
         prod_digitalcredential_client_secret="${{ inputs.prod-digitalcredential-client-secret }}"
         EOF
