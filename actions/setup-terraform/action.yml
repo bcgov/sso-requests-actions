@@ -85,30 +85,6 @@ inputs:
     description: 'GitHub Client Secret in dev environment'
     required: false
     default: ''
-  dev-google-client-id:
-    description: 'Google Client ID in dev environment'
-    required: false
-    default: ''
-  dev-google-client-secret:
-    description: 'Google Client Secret in dev environment'
-    required: false
-    default: ''    
-  dev-microsoft-client-id:
-    description: 'Microsoft Client ID in dev environment'
-    required: false
-    default: ''
-  dev-microsoft-client-secret:
-    description: 'Microsoft Client Secret in dev environment'
-    required: false
-    default: ''
-  dev-apple-client-id:
-    description: 'Apple Client ID in dev environment'
-    required: false
-    default: ''
-  dev-apple-client-secret:
-    description: 'Apple Client Secret in dev environment'
-    required: false
-    default: ''   
   dev-digitalcredential-client-id:
     description: 'Digital Credential Client ID in dev environment'
     required: false
@@ -137,30 +113,6 @@ inputs:
     description: 'GitHub Client Secret in test environment'
     required: false
     default: ''
-  test-google-client-id:
-    description: 'Google Client ID in test environment'
-    required: false
-    default: ''
-  test-google-client-secret:
-    description: 'Google Client Secret in test environment'
-    required: false
-    default: ''
-  test-microsoft-client-id:
-    description: 'Microsoft Client ID in test environment'
-    required: false
-    default: ''
-  test-microsoft-client-secret:
-    description: 'Microsoft Client Secret in test environment'
-    required: false
-    default: ''
-  test-apple-client-id:
-    description: 'Apple Client ID in test environment'
-    required: false
-    default: ''
-  test-apple-client-secret:
-    description: 'Apple Client Secret in test environment'
-    required: false
-    default: '' 
   test-digitalcredential-client-id:
     description: 'Digital Credential Client ID in test environment'
     required: false
@@ -189,30 +141,6 @@ inputs:
     description: 'GitHub Client Secret in prod environment'
     required: false
     default: ''
-  prod-google-client-id:
-    description: 'Google Client ID in prod environment'
-    required: false
-    default: ''
-  prod-google-client-secret:
-    description: 'Google Client Secret in prod environment'
-    required: false
-    default: ''
-  prod-microsoft-client-id:
-    description: 'Microsoft Client ID in prod environment'
-    required: false
-    default: ''
-  prod-microsoft-client-secret:
-    description: 'Microsoft Client Secret in prod environment'
-    required: false
-    default: ''
-  prod-apple-client-id:
-    description: 'Apple Client ID in prod environment'
-    required: false
-    default: ''
-  prod-apple-client-secret:
-    description: 'Apple Client Secret in prod environment'
-    required: false
-    default: '' 
   prod-digitalcredential-client-id:
     description: 'Digital Credential Client ID in prod environment'
     required: false
@@ -319,26 +247,6 @@ runs:
         test_github_client_secret="${{ inputs.test-github-client-secret }}"
         prod_github_client_id="${{ inputs.prod-github-client-id }}"
         prod_github_client_secret="${{ inputs.prod-github-client-secret }}"
-        dev_google_client_id="${{ inputs.dev-google-client-id }}"
-        dev_google_client_secret="${{ inputs.dev-google-client-secret }}"
-        test_google_client_id="${{ inputs.test-google-client-id }}"
-        test_google_client_secret="${{ inputs.test-google-client-secret }}"
-        prod_google_client_id="${{ inputs.prod-google-client-id }}"
-        prod_google_client_secret="${{ inputs.prod-google-client-secret }}"
-        dev_microsoft_client_id="${{ inputs.dev-microsoft-client-id }}"
-        dev_microsoft_client_secret="${{ inputs.dev-microsoft-client-secret }}"
-        test_microsoft_client_id="${{ inputs.test-microsoft-client-id }}"
-        test_microsoft_client_secret="${{ inputs.test-microsoft-client-secret }}"
-        prod_microsoft_client_id="${{ inputs.prod-microsoft-client-id }}"
-        prod_microsoft_client_secret="${{ inputs.prod-microsoft-client-secret }}"
-
-        dev_apple_client_id="${{ inputs.dev-apple-client-id }}"
-        dev_apple_client_secret="${{ inputs.dev-apple-client-secret }}"
-        test_apple_client_id="${{ inputs.test-apple-client-id }}"
-        test_apple_client_secret="${{ inputs.test-apple-client-secret }}"
-        prod_apple_client_id="${{ inputs.prod-apple-client-id }}"
-        prod_apple_client_secret="${{ inputs.prod-apple-client-secret }}"
-
         prod_digitalcredential_client_id="${{ inputs.prod-digitalcredential-client-id }}"
         prod_digitalcredential_client_secret="${{ inputs.prod-digitalcredential-client-secret }}"
         EOF
