@@ -25,7 +25,7 @@ module.exports = ({
   const tfg = new TerraformGenerator();
 
   const data = {
-    source: `github.com/bcgov/sso-terraform-modules?ref=${tfModuleRef}/modules/standard-client-saml`,
+    source: `github.com/bcgov/sso-terraform?ref=${tfModuleRef}/terraform-modules/modules/standard-client-saml`,
     realm_id,
     client_id: clientId,
     client_name: clientName,
