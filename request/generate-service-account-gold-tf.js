@@ -10,7 +10,7 @@ module.exports = ({ clientId, teamId, tfModuleRef, webOrigins }) => {
   const tfg = new TerraformGenerator();
 
   const data = {
-    source: `github.com/bcgov/sso-terraform-modules?ref=${tfModuleRef}/modules/standard-service-account`,
+    source: `github.com/bcgov/sso-terraform?ref=${tfModuleRef}/terraform-modules/modules/standard-service-account`,
     realm_id,
     client_id: clientId,
     team_id: teamId,
