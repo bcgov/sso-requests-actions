@@ -149,6 +149,30 @@ inputs:
     description: 'Digital Credential Client Secret in prod environment'
     required: false
     default: ''
+  dev-otp-client-id:
+    description: 'OTP Client ID in dev environment'
+    required: false
+    default: ''
+  dev-otp-client-secret:
+    description: 'OTP Client Secret in dev environment'
+    required: false
+    default: ''
+  test-otp-client-id:
+    description: 'OTP Client ID in test environment'
+    required: false
+    default: ''
+  test-otp-client-secret:
+    description: 'OTP Client Secret in test environment'
+    required: false
+    default: ''
+  prod-otp-client-id:
+    description: 'OTP Client ID in prod environment'
+    required: false
+    default: ''
+  prod-otp-client-secret:
+    description: 'OTP Client Secret in prod environment'
+    required: false
+    default: ''
   plan:
     description: 'Whether to run Terraform plan'
     required: false
@@ -249,6 +273,12 @@ runs:
         prod_github_client_secret="${{ inputs.prod-github-client-secret }}"
         prod_digitalcredential_client_id="${{ inputs.prod-digitalcredential-client-id }}"
         prod_digitalcredential_client_secret="${{ inputs.prod-digitalcredential-client-secret }}"
+        dev_otp_client_id="${{ inputs.dev-otp-client-id }}"
+        dev_otp_client_secret="${{ inputs.dev-otp-client-secret }}"
+        test_otp_client_id="${{ inputs.test-otp-client-id }}"
+        test_otp_client_secret="${{ inputs.test-otp-client-secret }}"
+        prod_otp_client_id="${{ inputs.prod-otp-client-id }}"
+        prod_otp_client_secret="${{ inputs.prod-otp-client-secret }}"
         EOF
       shell: bash
       working-directory: ${{ inputs.context }}
