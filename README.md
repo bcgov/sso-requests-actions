@@ -1,8 +1,8 @@
 # sso-requests-actions
 
-![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
+![Lifecycle:Retired](https://img.shields.io/badge/Lifecycle-Retired-d45500)
 
-GitHub Actions to support sso-requests development process
+This repo has been archived and the actions moved into their respective repos.  Mainly the sso-terraform repo.
 
 ## Related repositories
 
